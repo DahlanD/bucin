@@ -1,0 +1,45 @@
+body {
+  background: linear-gradient(to right, #ffe0f0, #ffeef8);
+  font-family: 'Indie Flower', cursive;
+  text-align: center;
+  padding: 50px;
+}
+.container {
+  background-color: #ffffffcc;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+  display: inline-block;
+  animation: fadeIn 2s ease-in-out;
+}
+button {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+  transition: transform 0.2s ease;
+}
+button:hover {
+  background-color: #ff1493;
+  transform: scale(1.05);
+}
+#pesan {
+  font-size: 20px;
+  margin-top: 20px;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+#pesan.visible {
+  opacity: 1;
+}
+.hidden {
+  display: block;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
