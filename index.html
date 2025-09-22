@@ -1,20 +1,151 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pesan Buat Kamu</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
-</head>
-<body>
-  <div class="container">
-    <h1>❤️ Hai Kamu ❤️</h1>
-    <p>Aku cuma mau bilang...</p>
-    <button onclick="tampilPesan()">Klik dulu deh</button>
-    <p id="pesan" class="hidden">Aku sayang kamu. Selalu. 🥺❤️</p>
-    <audio id="loveMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+import { useEffect, useMemo, useState } from "react"; import { Card, CardContent } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import { Input } from "@/components/ui/input"; import { Textarea } from "@/components/ui/textarea"; import { Check, RefreshCw, Plus, Trash2, Save, Upload, Download, Printer } from "lucide-react"; import { motion } from "framer-motion";
+
+// --- Types interface Row { id: string; warna: string; stokAwal: number | ""; stokReal: number | ""; catatan?: string; dicek?: boolean; }
+
+// --- Helpers const LS_KEY = "famvint-cover-vespa";
+
+const seedRows: Row[] = [ { id: crypto.randomUUID(), warna: "Ungu", stokAwal: 5, stokReal: 5 }, { id: crypto.randomUUID(), warna: "Biru Tua", stokAwal: 20, stokReal: 20 }, { id: crypto.randomUUID(), warna: "Biru Muda", stokAwal: 20, stokReal: 20 }, { id: crypto.randomUUID(), warna: "Biru", stokAwal: 10, stokReal: 10 }, { id: crypto.randomUUID(), warna: "Cokelat Gelap", stokAwal: 10, stokReal: 10 }, { id: crypto.randomUUID(), warna: "Abu", stokAwal: 20, stokReal: 20 }, { id: crypto.randomUUID(), warna: "Kuning", stokAwal: 5, stokReal: 5, dicek: true, catatan: "Sudah dicek" }, { id: crypto.randomUUID(), warna: "Cokelat", stokAwal: 5, stokReal: 5 }, { id: crypto.randomUUID(), warna: "Hijau Army", stokAwal: 20, stokReal: 20 }, { id: crypto.randomUUID(), warna: "Hijau Tua", stokAwal: 10, stokReal: 5, catatan: "Baru update" }, { id: crypto.randomUUID(), warna: "Hijau Gelap", stokAwal: 10, stokReal: 10, dicek: true, catatan: "Sudah dicek" }, ];
+
+function loadRows(): Row[] { try { const raw = localStorage.getItem(LS_KEY); if (!raw) return seedRows; const parsed = JSON.parse(raw); if (Array.isArray(parsed)) return parsed as Row[]; return seedRows; } catch { return seedRows; } }
+
+function saveRows(rows: Row[]) { localStorage.setItem(LS_KEY, JSON.stringify(rows)); }
+
+function toNumber(v: any): number { if (v === "" || v === null || v === undefined) return 0; const n = Number(v); return Number.isFinite(n) ? n : 0; }
+
+function exportCSV(rows: Row[]) { const header = ["Warna", "Stok Awal", "Stok Real", "Selisih", "Dicek", "Catatan"]; const body = rows.map((r) => [ r.warna, toNumber(r.stokAwal), toNumber(r.stokReal), toNumber(r.stokReal) - toNumber(r.stokAwal), r.dicek ? "YA" : "TIDAK", (r.catatan ?? "").replace(/\n/g, " ") ]); const csv = [header, ...body].map((row) => row.map((x) => "${String(x).replace(/"/g, '""')}").join(",")).join("\n"); const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; const now = new Date(); const y = now.getFullYear(); const m = String(now.getMonth() + 1).padStart(2, "0"); const d = String(now.getDate()).padStart(2, "0"); a.download = stok-cover-vespa-${y}${m}${d}.csv; a.click(); URL.revokeObjectURL(url); }
+
+function importCSV(text: string): Row[] { // Very small CSV parser (no external libs) const lines = text.split(/\r?\n/).filter(Boolean); if (lines.length === 0) return []; const header = lines[0].split(",").map((h) => h.replace(/^"|"$/g, "").trim().toLowerCase()); const idx = { warna: header.findIndex((h) => h.includes("warna")), stokAwal: header.findIndex((h) => h.includes("awal")), stokReal: header.findIndex((h) => h.includes("real")), selisih: header.findIndex((h) => h.includes("selisih")), dicek: header.findIndex((h) => h.includes("dicek")), catatan: header.findIndex((h) => h.includes("catatan")), }; const rows: Row[] = []; for (let i = 1; i < lines.length; i++) { const cols = lines[i].match(/"([^"](?:""[^"])*)"|([^,]+)/g)?.map((c) => c.replace(/^"|"$/g, "").replace(/""/g, '"')) ?? []; const warna = cols[idx.warna] ?? ""; if (!warna) continue; const stokAwal = Number(cols[idx.stokAwal] ?? 0); const stokReal = Number(cols[idx.stokReal] ?? 0); const dicekVal = (cols[idx.dicek] ?? "").toString().toLowerCase(); const dicek = ["ya", "yes", "true", "1", "✅", "✔"].includes(dicekVal); const catatan = cols[idx.catatan] ?? ""; rows.push({ id: crypto.randomUUID(), warna, stokAwal, stokReal, dicek, catatan }); } return rows; }
+
+export default function InventoryMiniApp() { const [rows, setRows] = useState<Row[]>([]); const [q, setQ] = useState("");
+
+useEffect(() => { setRows(loadRows()); }, []);
+
+useEffect(() => { saveRows(rows); }, [rows]);
+
+const totals = useMemo(() => { const awal = rows.reduce((s, r) => s + toNumber(r.stokAwal), 0); const real = rows.reduce((s, r) => s + toNumber(r.stokReal), 0); const selisih = real - awal; return { awal, real, selisih }; }, [rows]);
+
+const filtered = useMemo(() => { const term = q.trim().toLowerCase(); if (!term) return rows; return rows.filter((r) => r.warna.toLowerCase().includes(term)); }, [rows, q]);
+
+function addRow() { setRows((rs) => [ ...rs, { id: crypto.randomUUID(), warna: "", stokAwal: 0, stokReal: 0, dicek: false, catatan: "" }, ]); }
+
+function removeRow(id: string) { setRows((rs) => rs.filter((r) => r.id !== id)); }
+
+function updateRow(id: string, patch: Partial<Row>) { setRows((rs) => rs.map((r) => (r.id === id ? { ...r, ...patch } : r))); }
+
+function resetAll() { if (!confirm("Reset ke data awal?")) return; setRows(seedRows); }
+
+function handleImportFile(e: React.ChangeEvent<HTMLInputElement>) { const file = e.target.files?.[0]; if (!file) return; const reader = new FileReader(); reader.onload = () => { const text = String(reader.result || ""); const newRows = importCSV(text); if (newRows.length) setRows(newRows); else alert("CSV tidak terbaca. Pastikan header kolom: Warna, Stok Awal, Stok Real, Selisih (opsional), Dicek, Catatan."); }; reader.readAsText(file); e.currentTarget.value = ""; }
+
+return ( <div className="min-h-screen bg-neutral-950 text-neutral-100 p-4 sm:p-8"> <div className="max-w-6xl mx-auto space-y-6"> <motion.h1 className="text-2xl sm:text-3xl font-semibold tracking-tight" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} > Mini Web Stok – Cover Vespa </motion.h1>
+
+<Card className="bg-neutral-900/60 border-neutral-800">
+      <CardContent className="p-4 sm:p-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="space-y-1">
+            <div className="text-xs uppercase text-neutral-400">Stok Awal (pcs)</div>
+            <div className="text-2xl font-semibold">{totals.awal}</div>
+          </div>
+          <div className="space-y-1">
+            <div className="text-xs uppercase text-neutral-400">Stok Real (pcs)</div>
+            <div className="text-2xl font-semibold">{totals.real}</div>
+          </div>
+          <div className="space-y-1">
+            <div className="text-xs uppercase text-neutral-400">Selisih (Real - Awal)</div>
+            <div className={`text-2xl font-semibold ${totals.selisih === 0 ? "text-neutral-200" : totals.selisih > 0 ? "text-green-400" : "text-red-400"}`}>
+              {totals.selisih}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 flex flex-col sm:flex-row gap-2 sm:items-center">
+          <div className="flex-1">
+            <Input placeholder="Cari warna…" value={q} onChange={(e) => setQ(e.target.value)} />
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button onClick={addRow} className="gap-2"><Plus size={16}/>Tambah</Button>
+            <Button onClick={() => saveRows(rows)} className="gap-2" variant="secondary"><Save size={16}/>Simpan</Button>
+            <Button onClick={() => exportCSV(rows)} className="gap-2" variant="secondary"><Download size={16}/>Ekspor CSV</Button>
+            <label className="inline-flex items-center gap-2 cursor-pointer">
+              <input type="file" accept=".csv,text/csv" className="hidden" onChange={handleImportFile}/>
+              <div className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700">
+                <Upload size={16}/> Impor CSV
+              </div>
+            </label>
+            <Button onClick={() => window.print()} className="gap-2" variant="secondary"><Printer size={16}/>Print</Button>
+            <Button onClick={resetAll} className="gap-2" variant="destructive"><RefreshCw size={16}/>Reset</Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+
+    <div className="overflow-x-auto rounded-2xl border border-neutral-800">
+      <table className="min-w-full text-sm">
+        <thead className="bg-neutral-900 text-neutral-300">
+          <tr className="text-left">
+            <th className="p-3">#</th>
+            <th className="p-3">Warna</th>
+            <th className="p-3">Stok Awal</th>
+            <th className="p-3">Stok Real</th>
+            <th className="p-3">Selisih</th>
+            <th className="p-3">Dicek</th>
+            <th className="p-3">Catatan</th>
+            <th className="p-3 text-right">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filtered.length === 0 && (
+            <tr>
+              <td className="p-4 text-neutral-400" colSpan={8}>Tidak ada data.</td>
+            </tr>
+          )}
+          {filtered.map((r, i) => {
+            const selisih = toNumber(r.stokReal) - toNumber(r.stokAwal);
+            const selisihCls = selisih === 0 ? "text-neutral-200" : selisih > 0 ? "text-green-400" : "text-red-400";
+            return (
+              <tr key={r.id} className="border-t border-neutral-800 hover:bg-neutral-900/40">
+                <td className="p-3 align-top text-neutral-400">{i + 1}</td>
+                <td className="p-3 align-top">
+                  <Input value={r.warna} onChange={(e) => updateRow(r.id, { warna: e.target.value })} />
+                </td>
+                <td className="p-3 align-top w-32">
+                  <Input type="number" value={r.stokAwal} onChange={(e) => updateRow(r.id, { stokAwal: Number(e.target.value) })} />
+                </td>
+                <td className="p-3 align-top w-32">
+                  <Input type="number" value={r.stokReal} onChange={(e) => updateRow(r.id, { stokReal: Number(e.target.value) })} />
+                </td>
+                <td className={`p-3 align-top font-medium ${selisihCls}`}>{selisih}</td>
+                <td className="p-3 align-top">
+                  <label className="inline-flex items-center gap-2 select-none">
+                    <input type="checkbox" checked={Boolean(r.dicek)} onChange={(e) => updateRow(r.id, { dicek: e.target.checked })} />
+                    <span className="text-xs text-neutral-400">Sudah dicek</span>
+                  </label>
+                </td>
+                <td className="p-3 align-top min-w-[200px]">
+                  <Textarea value={r.catatan ?? ""} onChange={(e) => updateRow(r.id, { catatan: e.target.value })} />
+                </td>
+                <td className="p-3 align-top text-right">
+                  <Button variant="ghost" onClick={() => removeRow(r.id)}><Trash2 size={16}/></Button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+
+    <p className="text-xs text-neutral-500">
+      Data tersimpan otomatis di perangkat ini (localStorage). Ekspor CSV untuk backup atau pindah perangkat.
+    </p>
   </div>
-  <script src="script.js"></script>
-</body>
-</html>
+  <style>{`
+    @media print {
+      .no-print { display: none !important; }
+      input, textarea, button { border: 0 !important; box-shadow: none !important; }
+      .border, .border-neutral-800 { border-color: #333 !important; }
+      body { background: white; color: black; }
+    }
+  `}</style>
+</div>
+
+); }
+
