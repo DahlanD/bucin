@@ -1,151 +1,488 @@
-import { useEffect, useMemo, useState } from "react"; import { Card, CardContent } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import { Input } from "@/components/ui/input"; import { Textarea } from "@/components/ui/textarea"; import { Check, RefreshCw, Plus, Trash2, Save, Upload, Download, Printer } from "lucide-react"; import { motion } from "framer-motion";
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahesa Group | Integrating Technology, Elevating Lifestyle</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-// --- Types interface Row { id: string; warna: string; stokAwal: number | ""; stokReal: number | ""; catatan?: string; dicek?: boolean; }
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        mahesa: {
+                            black: '#1A1A1A',
+                            gray: '#666666',
+                            light: '#F4F4F5',
+                            white: '#FFFFFF',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-// --- Helpers const LS_KEY = "famvint-cover-vespa";
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+        
+        .floating {
+            animation: float 8s ease-in-out infinite;
+        }
 
-const seedRows: Row[] = [ { id: crypto.randomUUID(), warna: "Ungu", stokAwal: 5, stokReal: 5 }, { id: crypto.randomUUID(), warna: "Biru Tua", stokAwal: 20, stokReal: 20 }, { id: crypto.randomUUID(), warna: "Biru Muda", stokAwal: 20, stokReal: 20 }, { id: crypto.randomUUID(), warna: "Biru", stokAwal: 10, stokReal: 10 }, { id: crypto.randomUUID(), warna: "Cokelat Gelap", stokAwal: 10, stokReal: 10 }, { id: crypto.randomUUID(), warna: "Abu", stokAwal: 20, stokReal: 20 }, { id: crypto.randomUUID(), warna: "Kuning", stokAwal: 5, stokReal: 5, dicek: true, catatan: "Sudah dicek" }, { id: crypto.randomUUID(), warna: "Cokelat", stokAwal: 5, stokReal: 5 }, { id: crypto.randomUUID(), warna: "Hijau Army", stokAwal: 20, stokReal: 20 }, { id: crypto.randomUUID(), warna: "Hijau Tua", stokAwal: 10, stokReal: 5, catatan: "Baru update" }, { id: crypto.randomUUID(), warna: "Hijau Gelap", stokAwal: 10, stokReal: 10, dicek: true, catatan: "Sudah dicek" }, ];
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
 
-function loadRows(): Row[] { try { const raw = localStorage.getItem(LS_KEY); if (!raw) return seedRows; const parsed = JSON.parse(raw); if (Array.isArray(parsed)) return parsed as Row[]; return seedRows; } catch { return seedRows; } }
+        .gradient-text {
+            background: linear-gradient(135deg, #000000 0%, #434343 50%, #000000 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 8s ease infinite;
+        }
 
-function saveRows(rows: Row[]) { localStorage.setItem(LS_KEY, JSON.stringify(rows)); }
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
 
-function toNumber(v: any): number { if (v === "" || v === null || v === undefined) return 0; const n = Number(v); return Number.isFinite(n) ? n : 0; }
+        .hero-bg {
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(0, 0, 0, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.01) 0%, transparent 50%);
+        }
 
-function exportCSV(rows: Row[]) { const header = ["Warna", "Stok Awal", "Stok Real", "Selisih", "Dicek", "Catatan"]; const body = rows.map((r) => [ r.warna, toNumber(r.stokAwal), toNumber(r.stokReal), toNumber(r.stokReal) - toNumber(r.stokAwal), r.dicek ? "YA" : "TIDAK", (r.catatan ?? "").replace(/\n/g, " ") ]); const csv = [header, ...body].map((row) => row.map((x) => "${String(x).replace(/"/g, '""')}").join(",")).join("\n"); const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; const now = new Date(); const y = now.getFullYear(); const m = String(now.getMonth() + 1).padStart(2, "0"); const d = String(now.getDate()).padStart(2, "0"); a.download = stok-cover-vespa-${y}${m}${d}.csv; a.click(); URL.revokeObjectURL(url); }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            pointer-events: none;
+        }
 
-function importCSV(text: string): Row[] { // Very small CSV parser (no external libs) const lines = text.split(/\r?\n/).filter(Boolean); if (lines.length === 0) return []; const header = lines[0].split(",").map((h) => h.replace(/^"|"$/g, "").trim().toLowerCase()); const idx = { warna: header.findIndex((h) => h.includes("warna")), stokAwal: header.findIndex((h) => h.includes("awal")), stokReal: header.findIndex((h) => h.includes("real")), selisih: header.findIndex((h) => h.includes("selisih")), dicek: header.findIndex((h) => h.includes("dicek")), catatan: header.findIndex((h) => h.includes("catatan")), }; const rows: Row[] = []; for (let i = 1; i < lines.length; i++) { const cols = lines[i].match(/"([^"](?:""[^"])*)"|([^,]+)/g)?.map((c) => c.replace(/^"|"$/g, "").replace(/""/g, '"')) ?? []; const warna = cols[idx.warna] ?? ""; if (!warna) continue; const stokAwal = Number(cols[idx.stokAwal] ?? 0); const stokReal = Number(cols[idx.stokReal] ?? 0); const dicekVal = (cols[idx.dicek] ?? "").toString().toLowerCase(); const dicek = ["ya", "yes", "true", "1", "✅", "✔"].includes(dicekVal); const catatan = cols[idx.catatan] ?? ""; rows.push({ id: crypto.randomUUID(), warna, stokAwal, stokReal, dicek, catatan }); } return rows; }
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #666666 100%);
+            top: -100px;
+            right: -100px;
+            animation: float 15s ease-in-out infinite;
+        }
 
-export default function InventoryMiniApp() { const [rows, setRows] = useState<Row[]>([]); const [q, setQ] = useState("");
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #666666 0%, #1a1a1a 100%);
+            bottom: -50px;
+            left: -50px;
+            animation: float 12s ease-in-out infinite reverse;
+        }
 
-useEffect(() => { setRows(loadRows()); }, []);
+        .stat-number {
+            transition: transform 0.3s ease;
+        }
 
-useEffect(() => { saveRows(rows); }, [rows]);
+        .stat-card:hover .stat-number {
+            transform: scale(1.1);
+        }
 
-const totals = useMemo(() => { const awal = rows.reduce((s, r) => s + toNumber(r.stokAwal), 0); const real = rows.reduce((s, r) => s + toNumber(r.stokReal), 0); const selisih = real - awal; return { awal, real, selisih }; }, [rows]);
+        .icon-container {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-const filtered = useMemo(() => { const term = q.trim().toLowerCase(); if (!term) return rows; return rows.filter((r) => r.warna.toLowerCase().includes(term)); }, [rows, q]);
+        .hover-lift:hover .icon-container {
+            transform: rotate(10deg) scale(1.1);
+        }
 
-function addRow() { setRows((rs) => [ ...rs, { id: crypto.randomUUID(), warna: "", stokAwal: 0, stokReal: 0, dicek: false, catatan: "" }, ]); }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
 
-function removeRow(id: string) { setRows((rs) => rs.filter((r) => r.id !== id)); }
+        .pulse-slow {
+            animation: pulse-slow 4s ease-in-out infinite;
+        }
 
-function updateRow(id: string, patch: Partial<Row>) { setRows((rs) => rs.map((r) => (r.id === id ? { ...r, ...patch } : r))); }
+        .nav-link {
+            position: relative;
+        }
 
-function resetAll() { if (!confirm("Reset ke data awal?")) return; setRows(seedRows); }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #1A1A1A;
+            transition: width 0.3s ease;
+        }
 
-function handleImportFile(e: React.ChangeEvent<HTMLInputElement>) { const file = e.target.files?.[0]; if (!file) return; const reader = new FileReader(); reader.onload = () => { const text = String(reader.result || ""); const newRows = importCSV(text); if (newRows.length) setRows(newRows); else alert("CSV tidak terbaca. Pastikan header kolom: Warna, Stok Awal, Stok Real, Selisih (opsional), Dicek, Catatan."); }; reader.readAsText(file); e.currentTarget.value = ""; }
+        .nav-link:hover::after {
+            width: 100%;
+        }
 
-return ( <div className="min-h-screen bg-neutral-950 text-neutral-100 p-4 sm:p-8"> <div className="max-w-6xl mx-auto space-y-6"> <motion.h1 className="text-2xl sm:text-3xl font-semibold tracking-tight" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} > Mini Web Stok – Cover Vespa </motion.h1>
+        .card-shine {
+            position: relative;
+            overflow: hidden;
+        }
 
-<Card className="bg-neutral-900/60 border-neutral-800">
-      <CardContent className="p-4 sm:p-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="space-y-1">
-            <div className="text-xs uppercase text-neutral-400">Stok Awal (pcs)</div>
-            <div className="text-2xl font-semibold">{totals.awal}</div>
-          </div>
-          <div className="space-y-1">
-            <div className="text-xs uppercase text-neutral-400">Stok Real (pcs)</div>
-            <div className="text-2xl font-semibold">{totals.real}</div>
-          </div>
-          <div className="space-y-1">
-            <div className="text-xs uppercase text-neutral-400">Selisih (Real - Awal)</div>
-            <div className={`text-2xl font-semibold ${totals.selisih === 0 ? "text-neutral-200" : totals.selisih > 0 ? "text-green-400" : "text-red-400"}`}>
-              {totals.selisih}
+        .card-shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .card-shine:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-mahesa-white text-mahesa-black antialiased selection:bg-black selection:text-white overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 left-0 bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="font-bold text-2xl tracking-tight hover:scale-105 transition-transform cursor-pointer">
+                MAHESA<span class="font-light text-gray-400">GROUP</span>
             </div>
-          </div>
-        </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-10 text-sm font-semibold text-mahesa-gray">
+                <a href="#units" class="nav-link hover:text-black transition-colors">Business Units</a>
+                <a href="#vision" class="nav-link hover:text-black transition-colors">Vision</a>
+                <a href="#stats" class="nav-link hover:text-black transition-colors">Impact</a>
+                <a href="#contact" class="nav-link hover:text-black transition-colors">Contact</a>
+            </div>
 
-        <div className="mt-4 flex flex-col sm:flex-row gap-2 sm:items-center">
-          <div className="flex-1">
-            <Input placeholder="Cari warna…" value={q} onChange={(e) => setQ(e.target.value)} />
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Button onClick={addRow} className="gap-2"><Plus size={16}/>Tambah</Button>
-            <Button onClick={() => saveRows(rows)} className="gap-2" variant="secondary"><Save size={16}/>Simpan</Button>
-            <Button onClick={() => exportCSV(rows)} className="gap-2" variant="secondary"><Download size={16}/>Ekspor CSV</Button>
-            <label className="inline-flex items-center gap-2 cursor-pointer">
-              <input type="file" accept=".csv,text/csv" className="hidden" onChange={handleImportFile}/>
-              <div className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700">
-                <Upload size={16}/> Impor CSV
-              </div>
-            </label>
-            <Button onClick={() => window.print()} className="gap-2" variant="secondary"><Printer size={16}/>Print</Button>
-            <Button onClick={resetAll} className="gap-2" variant="destructive"><RefreshCw size={16}/>Reset</Button>
-          </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-3 hover:bg-gray-50 rounded-xl transition-all hover:scale-110">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
         </div>
-      </CardContent>
-    </Card>
+    </nav>
 
-    <div className="overflow-x-auto rounded-2xl border border-neutral-800">
-      <table className="min-w-full text-sm">
-        <thead className="bg-neutral-900 text-neutral-300">
-          <tr className="text-left">
-            <th className="p-3">#</th>
-            <th className="p-3">Warna</th>
-            <th className="p-3">Stok Awal</th>
-            <th className="p-3">Stok Real</th>
-            <th className="p-3">Selisih</th>
-            <th className="p-3">Dicek</th>
-            <th className="p-3">Catatan</th>
-            <th className="p-3 text-right">Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filtered.length === 0 && (
-            <tr>
-              <td className="p-4 text-neutral-400" colSpan={8}>Tidak ada data.</td>
-            </tr>
-          )}
-          {filtered.map((r, i) => {
-            const selisih = toNumber(r.stokReal) - toNumber(r.stokAwal);
-            const selisihCls = selisih === 0 ? "text-neutral-200" : selisih > 0 ? "text-green-400" : "text-red-400";
-            return (
-              <tr key={r.id} className="border-t border-neutral-800 hover:bg-neutral-900/40">
-                <td className="p-3 align-top text-neutral-400">{i + 1}</td>
-                <td className="p-3 align-top">
-                  <Input value={r.warna} onChange={(e) => updateRow(r.id, { warna: e.target.value })} />
-                </td>
-                <td className="p-3 align-top w-32">
-                  <Input type="number" value={r.stokAwal} onChange={(e) => updateRow(r.id, { stokAwal: Number(e.target.value) })} />
-                </td>
-                <td className="p-3 align-top w-32">
-                  <Input type="number" value={r.stokReal} onChange={(e) => updateRow(r.id, { stokReal: Number(e.target.value) })} />
-                </td>
-                <td className={`p-3 align-top font-medium ${selisihCls}`}>{selisih}</td>
-                <td className="p-3 align-top">
-                  <label className="inline-flex items-center gap-2 select-none">
-                    <input type="checkbox" checked={Boolean(r.dicek)} onChange={(e) => updateRow(r.id, { dicek: e.target.checked })} />
-                    <span className="text-xs text-neutral-400">Sudah dicek</span>
-                  </label>
-                </td>
-                <td className="p-3 align-top min-w-[200px]">
-                  <Textarea value={r.catatan ?? ""} onChange={(e) => updateRow(r.id, { catatan: e.target.value })} />
-                </td>
-                <td className="p-3 align-top text-right">
-                  <Button variant="ghost" onClick={() => removeRow(r.id)}><Trash2 size={16}/></Button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-40 md:hidden">
+        <div class="p-8">
+            <button id="close-menu" class="mb-12 p-3 hover:bg-gray-50 rounded-xl transition-all hover:rotate-90">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            <div class="flex flex-col space-y-8 text-xl font-semibold">
+                <a href="#units" class="hover:text-gray-400 hover:translate-x-2 transition-all">Business Units</a>
+                <a href="#vision" class="hover:text-gray-400 hover:translate-x-2 transition-all">Vision</a>
+                <a href="#stats" class="hover:text-gray-400 hover:translate-x-2 transition-all">Impact</a>
+                <a href="#contact" class="hover:text-gray-400 hover:translate-x-2 transition-all">Contact</a>
+            </div>
+        </div>
     </div>
 
-    <p className="text-xs text-neutral-500">
-      Data tersimpan otomatis di perangkat ini (localStorage). Ekspor CSV untuk backup atau pindah perangkat.
-    </p>
-  </div>
-  <style>{`
-    @media print {
-      .no-print { display: none !important; }
-      input, textarea, button { border: 0 !important; box-shadow: none !important; }
-      .border, .border-neutral-800 { border-color: #333 !important; }
-      body { background: white; color: black; }
-    }
-  `}</style>
-</div>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center pt-20 px-6 hero-bg relative overflow-hidden">
+        <!-- Animated Orbs -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
 
-); }
+        <div class="max-w-5xl mx-auto text-center space-y-10 fade-in relative z-10">
+            <div class="inline-block px-5 py-2 rounded-full bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 text-xs font-bold tracking-widest uppercase text-gray-600 hover:scale-105 transition-transform cursor-default">
+                Est. 2025 — Innovation & Lifestyle
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl font-extrabold leading-[1.1] tracking-tighter">
+                Integrating Technology, <br>
+                <span class="gradient-text">Elevating Lifestyle.</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-mahesa-gray max-w-3xl mx-auto font-light leading-relaxed">
+                Mahesa Group adalah ekosistem yang menjembatani efisiensi digital dengan estetika kehidupan nyata. Dari retail aksesoris hingga otomasi sistem.
+            </p>
+            
+            <div class="pt-10 flex flex-col sm:flex-row justify-center gap-5">
+                <a href="#units" class="btn-primary px-10 py-5 bg-black text-white font-bold rounded-xl text-lg relative z-10">
+                    Explore Ecosystem
+                </a>
+                <a href="https://github.com/username" target="_blank" class="px-10 py-5 bg-white border-2 border-gray-200 text-black font-bold rounded-xl hover:bg-gray-50 hover:border-black hover:scale-105 transition-all text-lg">
+                    View GitHub
+                </a>
+            </div>
+        </div>
 
+        <!-- Floating Decorative Elements -->
+        <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 floating opacity-10">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                <circle cx="30" cy="30" r="3" fill="currentColor"/>
+                <circle cx="30" cy="30" r="15" stroke="currentColor" stroke-width="1"/>
+                <circle cx="30" cy="30" r="25" stroke="currentColor" stroke-width="0.5"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="py-28 bg-gradient-to-b from-black to-gray-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center fade-in">
+                <div class="stat-card group cursor-default">
+                    <div class="stat-number text-5xl md:text-7xl font-extrabold mb-3 group-hover:text-gray-300 transition-colors">3</div>
+                    <div class="text-gray-400 text-sm uppercase tracking-widest font-semibold">Business Units</div>
+                </div>
+                <div class="stat-card group cursor-default">
+                    <div class="stat-number text-5xl md:text-7xl font-extrabold mb-3 group-hover:text-gray-300 transition-colors">100+</div>
+                    <div class="text-gray-400 text-sm uppercase tracking-widest font-semibold">Products</div>
+                </div>
+                <div class="stat-card group cursor-default">
+                    <div class="stat-number text-5xl md:text-7xl font-extrabold mb-3 group-hover:text-gray-300 transition-colors">24/7</div>
+                    <div class="text-gray-400 text-sm uppercase tracking-widest font-semibold">Automation</div>
+                </div>
+                <div class="stat-card group cursor-default">
+                    <div class="stat-number text-5xl md:text-7xl font-extrabold mb-3 group-hover:text-gray-300 transition-colors">2025</div>
+                    <div class="text-gray-400 text-sm uppercase tracking-widest font-semibold">Founded</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Units -->
+    <section id="units" class="py-32 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="mb-20 fade-in">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">Our Pillars</h2>
+                <div class="h-2 w-24 bg-black rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                
+                <div class="card-shine bg-white p-10 rounded-3xl border-2 border-gray-100 hover-lift group cursor-pointer">
+                    <div class="icon-container h-16 w-16 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center mb-8 group-hover:from-black group-hover:to-gray-800 group-hover:text-white shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-gray-600 transition-colors">Mahesa Lifestyle</h3>
+                    <p class="text-xs font-bold text-gray-400 mb-5 tracking-widest uppercase">FAMVINT</p>
+                    <p class="text-gray-600 leading-relaxed mb-8 text-base">
+                        Menghadirkan kurasi aksesoris Vespa terbaik. Menggabungkan gaya klasik dengan manajemen order modern.
+                    </p>
+                    <a href="#" class="inline-flex items-center text-sm font-bold underline decoration-2 decoration-gray-300 hover:decoration-black transition-all group-hover:translate-x-2">
+                        Visit Store 
+                        <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="card-shine bg-white p-10 rounded-3xl border-2 border-gray-100 hover-lift group cursor-pointer">
+                    <div class="icon-container h-16 w-16 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center mb-8 group-hover:from-black group-hover:to-gray-800 group-hover:text-white shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-gray-600 transition-colors">Mahesa Tech</h3>
+                    <p class="text-xs font-bold text-gray-400 mb-5 tracking-widest uppercase">AUTOMATION & LABS</p>
+                    <p class="text-gray-600 leading-relaxed mb-8 text-base">
+                        Solusi otomasi Python, Bot Telegram, dan Personal Dashboard untuk produktivitas dan efisiensi sistem.
+                    </p>
+                    <a href="#" class="inline-flex items-center text-sm font-bold underline decoration-2 decoration-gray-300 hover:decoration-black transition-all group-hover:translate-x-2">
+                        See Projects
+                        <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="card-shine bg-white p-10 rounded-3xl border-2 border-gray-100 hover-lift group cursor-pointer">
+                    <div class="icon-container h-16 w-16 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center mb-8 group-hover:from-black group-hover:to-gray-800 group-hover:text-white shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-gray-600 transition-colors">Mahesa Ventures</h3>
+                    <p class="text-xs font-bold text-gray-400 mb-5 tracking-widest uppercase">SELF-GROWTH & R&D</p>
+                    <p class="text-gray-600 leading-relaxed mb-8 text-base">
+                        Inkubasi project open-source, tracking "Upgrade Diri 1 Tahun", dan eksplorasi ide kreatif.
+                    </p>
+                    <a href="#" class="inline-flex items-center text-sm font-bold underline decoration-2 decoration-gray-300 hover:decoration-black transition-all group-hover:translate-x-2">
+                        Read Journal
+                        <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section id="vision" class="py-32 bg-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-gray-50 to-transparent opacity-50"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 relative z-10">
+            <div class="fade-in text-center space-y-10">
+                <div class="inline-block px-5 py-2 rounded-full bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 text-xs font-bold tracking-widest uppercase text-gray-600">
+                    Our Philosophy
+                </div>
+                
+                <h2 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
+                    Building Systems That <br class="hidden md:block"> 
+                    <span class="gradient-text">Empower Human Potential</span>
+                </h2>
+                
+                <p class="text-xl text-mahesa-gray max-w-3xl mx-auto font-light leading-relaxed">
+                    Kami percaya bahwa teknologi terbaik adalah yang tak terlihat—bekerja di latar belakang untuk memberi Anda lebih banyak waktu, energi, dan kebebasan untuk fokus pada hal yang benar-benar penting.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16">
+                    <div class="p-8 border-2 border-gray-100 rounded-2xl hover:border-black hover:scale-105 hover:shadow-2xl transition-all cursor-default">
+                        <div class="text-5xl mb-6">🎯</div>
+                        <h4 class="font-extrabold text-xl mb-3">Purposeful</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">Setiap solusi dirancang dengan tujuan jelas dan dampak terukur.</p>
+                    </div>
+                    <div class="p-8 border-2 border-gray-100 rounded-2xl hover:border-black hover:scale-105 hover:shadow-2xl transition-all cursor-default">
+                        <div class="text-5xl mb-6">⚡</div>
+                        <h4 class="font-extrabold text-xl mb-3">Efficient</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">Otomasi cerdas yang menghemat waktu tanpa mengorbankan kualitas.</p>
+                    </div>
+                    <div class="p-8 border-2 border-gray-100 rounded-2xl hover:border-black hover:scale-105 hover:shadow-2xl transition-all cursor-default">
+                        <div class="text-5xl mb-6">✨</div>
+                        <h4 class="font-extrabold text-xl mb-3">Aesthetic</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">Fungsi bertemu dengan desain untuk pengalaman yang indah.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-32 bg-gradient-to-b from-gray-50 to-gray-100">
+        <div class="max-w-5xl mx-auto px-6 text-center fade-in">
+            <h3 class="text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">Ready to Integrate?</h3>
+            <p class="text-xl text-mahesa-gray mb-12 max-w-3xl mx-auto leading-relaxed">
+                Bergabunglah dengan ekosistem Mahesa Group dan mulai transformasi digital Anda hari ini.
+            </p>
+            <a href="#contact" class="btn-primary inline-block px-12 py-6 bg-black text-white font-bold rounded-xl text-lg relative z-10">
+                Get Started
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-white border-t-2 border-gray-100 py-16">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0 text-center md:text-left">
+                <p class="font-extrabold text-2xl mb-2">MAHESA GROUP</p>
+                <p class="text-gray-500 text-sm">Designed with precision by Dahlan Revara Mahesa.</p>
+            </div>
+            <div class="flex space-x-8">
+                <a href="#" class="text-gray-400 hover:text-black transition-all hover:scale-125 transform">
+                    <span class="sr-only">GitHub</span>
+                    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-black transition-all hover:scale-125 transform">
+                    <span class="sr-only">Email</span>
+                    <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenu = document.getElementById('close-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList
