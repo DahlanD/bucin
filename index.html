@@ -1,540 +1,1396 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahesa Group | Integrating Technology, Elevating Lifestyle</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mahesa Group | Portfolio & Business Profile</title>
+  <meta name="description" content="Profil bisnis, unit usaha, dan portofolio Mahesa Group." />
+  <style>
+    /* ====== RESET & GLOBAL ====== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        mahesa: {
-                            black: '#1A1A1A',
-                            gray: '#666666',
-                            light: '#F4F4F5',
-                            white: '#FFFFFF',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <style>
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .hover-lift {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .hover-lift:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .fade-in {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), 
-                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    :root {
+      --primary: #0f172a;
+      --primary-soft: #1e293b;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --bg: #020617;
+      --bg-soft: #020617;
+      --text: #e5e7eb;
+      --text-muted: #9ca3af;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --border: rgba(148, 163, 184, 0.2);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+    }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(5deg); }
-        }
-        
-        .floating {
-            animation: float 8s ease-in-out infinite;
-        }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      scroll-behavior: smooth;
+    }
 
-        @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-        .gradient-text {
-            background: linear-gradient(135deg, #000000 0%, #434343 50%, #000000 100%);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradient-shift 8s ease infinite;
-        }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-        .mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .mobile-menu.active {
-            transform: translateX(0);
-        }
+    /* ====== LAYOUT ====== */
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 3rem;
+    }
 
-        .hero-bg {
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.03) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(0, 0, 0, 0.03) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.01) 0%, transparent 50%);
-        }
+    /* ====== NAVBAR ====== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.95),
+        rgba(15, 23, 42, 0.7),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    }
 
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
-            pointer-events: none;
-        }
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.5rem;
+      gap: 1rem;
+    }
 
-        .orb-1 {
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #666666 100%);
-            top: -100px;
-            right: -100px;
-            animation: float 15s ease-in-out infinite;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
 
-        .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, #666666 0%, #1a1a1a 100%);
-            bottom: -50px;
-            left: -50px;
-            animation: float 12s ease-in-out infinite reverse;
-        }
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 20% 20%, #38bdf8, #0ea5e9, #0f172a 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #e0f2fe;
+      font-size: 0.95rem;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
+    }
 
-        .stat-number {
-            transition: transform 0.3s ease;
-        }
+    .brand-text-main {
+      font-weight: 650;
+      letter-spacing: 0.03em;
+      font-size: 1.05rem;
+    }
 
-        .stat-card:hover .stat-number {
-            transform: scale(1.1);
-        }
+    .brand-text-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
 
-        .icon-container {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-size: 0.9rem;
+    }
 
-        .hover-lift:hover .icon-container {
-            transform: rotate(10deg) scale(1.1);
-        }
+    .nav-links a {
+      color: var(--text-muted);
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
 
-        @keyframes pulse-slow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, #38bdf8, #0ea5e9);
+      border-radius: 999px;
+      transition: width 0.2s ease;
+    }
 
-        .pulse-slow {
-            animation: pulse-slow 4s ease-in-out infinite;
-        }
+    .nav-links a:hover {
+      color: #e5e7eb;
+      transform: translateY(-1px);
+    }
 
-        .nav-link {
-            position: relative;
-        }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #1A1A1A;
-            transition: width 0.3s ease;
-        }
+    .nav-cta {
+      font-size: 0.85rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      color: #e0f2fe;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 55%);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.16s ease, box-shadow 0.16s ease;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
+    .nav-cta span {
+      font-size: 0.95rem;
+    }
 
-        .card-shine {
-            position: relative;
-            overflow: hidden;
-        }
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(to right, rgba(56, 189, 248, 0.18), rgba(59, 130, 246, 0.1));
+      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.75);
+    }
 
-        .card-shine::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
 
-        .card-shine:hover::before {
-            left: 100%;
-        }
+    .nav-toggle span {
+      width: 22px;
+      height: 2px;
+      border-radius: 999px;
+      background: #e5e7eb;
+    }
 
-        .btn-primary {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
+    /* ====== HERO ====== */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.8fr);
+      gap: 2.5rem;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+      align-items: center;
+    }
 
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
+    .hero-left {
+      position: relative;
+    }
 
-        .btn-primary:hover::before {
-            width: 300px;
-            height: 300px;
-        }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      padding: 0.25rem 0.6rem 0.25rem 0.25rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      margin-bottom: 1.1rem;
+      backdrop-filter: blur(12px);
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-    </style>
+    .hero-badge-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #22c55e, #16a34a, #022c22);
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.35);
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 3vw, 2.7rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-title span.accent {
+      background: linear-gradient(to right, #38bdf8, #a855f7);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 35rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-subtitle strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .btn-primary {
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(to right, #38bdf8, #0ea5e9);
+      color: #0b1120;
+      box-shadow: 0 18px 40px rgba(8, 47, 73, 0.9);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.95);
+    }
+
+    .btn-ghost {
+      padding: 0.7rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--text);
+      backdrop-filter: blur(12px);
+      transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-1px);
+      border-color: rgba(56, 189, 248, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .metric-item {
+      padding-left: 0.9rem;
+      border-left: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .metric-label {
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 0.72rem;
+      margin-bottom: 0.15rem;
+      color: #9ca3af;
+    }
+
+    .metric-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .metric-value span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Hero Right */
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      position: relative;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), rgba(15, 23, 42, 0.95));
+      border-radius: 26px;
+      padding: 1.5rem 1.4rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      min-height: 260px;
+    }
+
+    .hero-card-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #bae6fd;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-card-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-pill-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 0.55rem 0.7rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .pill-label {
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.7rem;
+      color: #9ca3af;
+    }
+
+    .pill-value {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      padding-top: 0.7rem;
+      border-top: 1px dashed rgba(148, 163, 184, 0.5);
+      color: var(--text-muted);
+    }
+
+    .hero-status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3);
+      margin-right: 0.35rem;
+    }
+
+    .hero-orbit {
+      position: absolute;
+      inset: -80px;
+      opacity: 0.18;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 0 0, rgba(125, 211, 252, 0.9), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(167, 139, 250, 0.6), transparent 55%),
+        radial-gradient(circle at 0 100%, rgba(45, 212, 191, 0.5), transparent 55%);
+      mix-blend-mode: screen;
+    }
+
+    /* ====== SECTION GENERIC ====== */
+    section {
+      margin-top: 2.7rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: flex-end;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .section-kicker {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      max-width: 26rem;
+    }
+
+    /* ====== ABOUT ====== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 1.7rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1.3rem 1.4rem;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.85);
+    }
+
+    .about-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .about-text p + p {
+      margin-top: 0.8rem;
+    }
+
+    .about-highlights {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .about-highlight {
+      font-size: 0.8rem;
+      padding: 0.75rem 0.85rem;
+      border-radius: 0.9rem;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+    }
+
+    .about-highlight-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .about-meta {
+      display: grid;
+      gap: 0.7rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .badge-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.35rem;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    /* ====== BUSINESS UNITS ====== */
+    .business-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.3rem;
+    }
+
+    .business-card {
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.06), rgba(15, 23, 42, 0.98));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1.1rem 1.1rem 1.1rem;
+      font-size: 0.84rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    .business-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+    }
+
+    .business-name {
+      font-weight: 600;
+      font-size: 0.98rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .business-tagline {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.1rem;
+    }
+
+    .business-focus {
+      font-size: 0.76rem;
+      color: #bae6fd;
+    }
+
+    .business-footer {
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pill-small {
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      font-size: 0.7rem;
+      color: #e0f2fe;
+      background: rgba(8, 47, 73, 0.8);
+    }
+
+    /* ====== PORTFOLIO ====== */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .portfolio-card {
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.1), rgba(15, 23, 42, 0.96));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 0.9rem 0.95rem 1rem;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .portfolio-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    .portfolio-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .portfolio-client {
+      font-size: 0.78rem;
+      color: #a5b4fc;
+    }
+
+    .portfolio-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .portfolio-link {
+      font-size: 0.75rem;
+      text-decoration: underline;
+      cursor: pointer;
+      color: #bae6fd;
+    }
+
+    /* ====== NUMBERS / METRICS ====== */
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .number-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 0.9rem 1rem;
+      background: rgba(15, 23, 42, 0.94);
+      font-size: 0.8rem;
+      box-shadow: 0 12px 25px rgba(15, 23, 42, 0.95);
+    }
+
+    .number-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .number-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .number-caption {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ====== CONTACT ====== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.5fr);
+      gap: 1.7rem;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+    }
+
+    .form-field {
+      display: grid;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+    }
+
+    .form-field label {
+      color: var(--text-muted);
+    }
+
+    .form-field input,
+    .form-field textarea {
+      border-radius: 0.75rem;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      padding: 0.55rem 0.7rem;
+      font-size: 0.82rem;
+      color: var(--text);
+      outline: none;
+      resize: vertical;
+      min-height: 40px;
+    }
+
+    .form-field textarea {
+      min-height: 96px;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color: rgba(56, 189, 248, 0.8);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6);
+    }
+
+    .contact-meta-list {
+      list-style: none;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: grid;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .contact-meta-list li span {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .contact-socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.8rem;
+    }
+
+    .contact-socials a {
+      font-size: 0.78rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+    }
+
+    /* ====== FOOTER ====== */
+    footer {
+      margin-top: 2.5rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: minmax(0, 1.4fr);
+      }
+      .hero-right {
+        order: -1;
+      }
+      .about-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .business-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .portfolio-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .numbers-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .navbar-inner {
+        padding-inline: 1.1rem;
+      }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 0.9rem 1.5rem 1rem;
+        background: rgba(15, 23, 42, 0.98);
+        border-bottom: 1px solid rgba(30, 64, 175, 0.8);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: max-height 0.2s ease, opacity 0.18s ease;
+      }
+      .nav-links.open {
+        max-height: 240px;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-cta {
+        display: none;
+      }
+      .nav-toggle {
+        display: flex;
+      }
+      .hero {
+        padding-top: 2rem;
+      }
+      .page {
+        padding-inline: 1.1rem;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .business-grid,
+      .portfolio-grid,
+      .numbers-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .about-highlights {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .form-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
 </head>
-<body class="bg-mahesa-white text-mahesa-black antialiased selection:bg-black selection:text-white overflow-x-hidden">
-
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 top-0 left-0 bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="font-bold text-2xl tracking-tight hover:scale-105 transition-transform cursor-pointer">
-                MAHESA<span class="font-light text-gray-400">GROUP</span>
-            </div>
-            
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-10 text-sm font-semibold text-mahesa-gray">
-                <a href="#units" class="nav-link hover:text-black transition-colors">Business Units</a>
-                <a href="#vision" class="nav-link hover:text-black transition-colors">Vision</a>
-                <a href="#stats" class="nav-link hover:text-black transition-colors">Impact</a>
-                <a href="#contact" class="nav-link hover:text-black transition-colors">Contact</a>
-            </div>
-
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden p-3 hover:bg-gray-50 rounded-xl transition-all hover:scale-110">
-                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="brand">
+        <div class="brand-logo">MG</div>
+        <div>
+          <div class="brand-text-main">Mahesa Group</div>
+          <div class="brand-text-sub">Strategic Investments & Ventures</div>
         </div>
-    </nav>
+      </div>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-40 md:hidden">
-        <div class="p-8">
-            <button id="close-menu" class="mb-12 p-3 hover:bg-gray-50 rounded-xl transition-all hover:rotate-90">
-                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
-            <div class="flex flex-col space-y-8 text-xl font-semibold">
-                <a href="#units" class="hover:text-gray-400 hover:translate-x-2 transition-all">Business Units</a>
-                <a href="#vision" class="hover:text-gray-400 hover:translate-x-2 transition-all">Vision</a>
-                <a href="#stats" class="hover:text-gray-400 hover:translate-x-2 transition-all">Impact</a>
-                <a href="#contact" class="hover:text-gray-400 hover:translate-x-2 transition-all">Contact</a>
-            </div>
+      <nav>
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
+        <div class="nav-links" id="navLinks">
+          <a href="#home">Beranda</a>
+          <a href="#about">Tentang</a>
+          <a href="#business">Unit Usaha</a>
+          <a href="#portfolio">Portofolio</a>
+          <a href="#numbers">Angka</a>
+          <a href="#contact">Kontak</a>
+        </div>
+      </nav>
+
+      <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+        <span>Request Deck</span>
+        <span>↗</span>
+      </button>
     </div>
+  </header>
 
-    <!-- Hero Section -->
-    <section class="min-h-screen flex flex-col justify-center pt-20 px-6 hero-bg relative overflow-hidden">
-        <!-- Animated Orbs -->
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
+  <main class="page">
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <span>Building sustainable value for the next decade.</span>
+        </div>
+        <h1 class="hero-title">
+          Mahesa Group,
+          <span class="accent">ecosystem builder</span>
+          untuk bisnis yang berani tumbuh.
+        </h1>
+        <p class="hero-subtitle">
+          Mahesa Group adalah holding &amp; investment company yang berfokus pada
+          <strong>strategic ventures, digital assets, dan real sector</strong>.
+          Kami menggabungkan capital, network, dan eksekusi untuk mempercepat pertumbuhan bisnis di Indonesia dan regional.
+        </p>
 
-        <div class="max-w-5xl mx-auto text-center space-y-10 fade-in relative z-10">
-            <div class="inline-block px-5 py-2 rounded-full bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 text-xs font-bold tracking-widest uppercase text-gray-600 hover:scale-105 transition-transform cursor-default">
-                Est. 2025 — Innovation & Lifestyle
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+            Lihat Profil Grup
+            <span>↓</span>
+          </button>
+          <button class="btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+            Hubungi Manajemen
+          </button>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <div class="metric-label">Aset Kelolaan</div>
+            <div class="metric-value">Rp 250M<span>+ (aggregated)</span></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Unit Usaha</div>
+            <div class="metric-value">6<span> active verticals</span></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Kota Operasi</div>
+            <div class="metric-value">5<span> Indonesia & regional</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-orbit"></div>
+          <div class="hero-card-tag">Mahesa Group Snapshot</div>
+          <div class="hero-card-title">Balanced portfolio, founder-led, growth-focused.</div>
+          <div class="hero-card-subtitle">
+            Mengelola kombinasi bisnis cashflow, aset jangka panjang, dan venture bets
+            dengan disiplin risk &amp; capital allocation.
+          </div>
+
+          <div class="hero-pill-grid">
+            <div class="pill">
+              <div class="pill-label">Core Verticals</div>
+              <div class="pill-value">Property, F&amp;B, Digital Ventures</div>
             </div>
-            
-            <h1 class="text-6xl md:text-8xl font-extrabold leading-[1.1] tracking-tighter">
-                Integrating Technology, <br>
-                <span class="gradient-text">Elevating Lifestyle.</span>
-            </h1>
-            
-            <p class="text-xl md:text-2xl text-mahesa-gray max-w-3xl mx-auto font-light leading-relaxed">
-                Mahesa Group adalah ekosistem yang menjembatani efisiensi digital dengan estetika kehidupan nyata. Dari retail aksesoris hingga otomasi sistem.
+            <div class="pill">
+              <div class="pill-label">Operating Model</div>
+              <div class="pill-value">Active ownership &amp; strategic partnership</div>
+            </div>
+            <div class="pill">
+              <div class="pill-label">Deal Focus</div>
+              <div class="pill-value">Growth, turnaround, &amp; consolidation</div>
+            </div>
+            <div class="pill">
+              <div class="pill-label">Ticket Size</div>
+              <div class="pill-value">Rp 1–25M / deal</div>
+            </div>
+          </div>
+
+          <div class="hero-card-footer">
+            <div>
+              <span class="hero-status-dot"></span>
+              Open for co-investment &amp; strategic JV
+            </div>
+            <div>Last updated: 2025</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Tentang Mahesa Group</div>
+          <h2 class="section-title">Fundamental kuat, eksekusi cepat.</h2>
+        </div>
+        <p class="section-subtitle">
+          Mahesa Group dibangun di atas filosofi simple:
+          <strong>bisnis harus sehat, scalable, dan bernilai jangka panjang</strong>.
+          Kami fokus di sektor riil dan digital dengan pendekatan yang terukur.
+        </p>
+      </div>
+
+      <div class="about-grid card">
+        <div>
+          <div class="about-text">
+            <p>
+              Mahesa Group berperan sebagai operator sekaligus capital partner
+              untuk berbagai lini usaha yang kami miliki dan kami investasikan.
+              Kami bergerak dari hulu ke hilir: dari ide, validasi, sampai scale-up.
             </p>
-            
-            <div class="pt-10 flex flex-col sm:flex-row justify-center gap-5">
-                <a href="#units" class="btn-primary px-10 py-5 bg-black text-white font-bold rounded-xl text-lg relative z-10">
-                    Explore Ecosystem
-                </a>
-                <a href="https://github.com/username" target="_blank" class="px-10 py-5 bg-white border-2 border-gray-200 text-black font-bold rounded-xl hover:bg-gray-50 hover:border-black hover:scale-105 transition-all text-lg">
-                    View GitHub
-                </a>
-            </div>
-        </div>
-
-        <!-- Floating Decorative Elements -->
-        <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 floating opacity-10">
-            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-                <circle cx="30" cy="30" r="3" fill="currentColor"/>
-                <circle cx="30" cy="30" r="15" stroke="currentColor" stroke-width="1"/>
-                <circle cx="30" cy="30" r="25" stroke="currentColor" stroke-width="0.5"/>
-            </svg>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section id="stats" class="py-28 bg-gradient-to-b from-black to-gray-900 text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-            <div class="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-        </div>
-        
-        <div class="max-w-6xl mx-auto px-6 relative z-10">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center fade-in">
-                <div class="stat-card group cursor-default">
-                    <div class="stat-number text-5xl md:text-7xl font-extrabold mb-3 group-hover:text-gray-300 transition-colors">3</div>
-                    <div class="text-gray-400 text-sm uppercase tracking-widest font-semibold">Business Units</div>
-                </div>
-                <div class="stat-card group cursor-default">
-                    <div class="stat-number text-5xl md:text-7xl font-extrabold mb-3 group-hover:text-gray-300 transition-colors">100+</div>
-                    <div class="text-gray-400 text-sm uppercase tracking-widest font-semibold">Products</div>
-                </div>
-                <div class="stat-card group cursor-default">
-                    <div class="stat-number text-5xl md:text-7xl font-extrabold mb-3 group-hover:text-gray-300 transition-colors">24/7</div>
-                    <div class="text-gray-400 text-sm uppercase tracking-widest font-semibold">Automation</div>
-                </div>
-                <div class="stat-card group cursor-default">
-                    <div class="stat-number text-5xl md:text-7xl font-extrabold mb-3 group-hover:text-gray-300 transition-colors">2025</div>
-                    <div class="text-gray-400 text-sm uppercase tracking-widest font-semibold">Founded</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Business Units -->
-    <section id="units" class="py-32 bg-gradient-to-b from-gray-50 to-white">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="mb-20 fade-in">
-                <h2 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">Our Pillars</h2>
-                <div class="h-2 w-24 bg-black rounded-full"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                
-                <div class="card-shine bg-white p-10 rounded-3xl border-2 border-gray-100 hover-lift group cursor-pointer">
-                    <div class="icon-container h-16 w-16 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center mb-8 group-hover:from-black group-hover:to-gray-800 group-hover:text-white shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-gray-600 transition-colors">Mahesa Lifestyle</h3>
-                    <p class="text-xs font-bold text-gray-400 mb-5 tracking-widest uppercase">FAMVINT</p>
-                    <p class="text-gray-600 leading-relaxed mb-8 text-base">
-                        Menghadirkan kurasi aksesoris Vespa terbaik. Menggabungkan gaya klasik dengan manajemen order modern.
-                    </p>
-                    <a href="#" class="inline-flex items-center text-sm font-bold underline decoration-2 decoration-gray-300 hover:decoration-black transition-all group-hover:translate-x-2">
-                        Visit Store 
-                        <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-                </div>
-
-                <div class="card-shine bg-white p-10 rounded-3xl border-2 border-gray-100 hover-lift group cursor-pointer">
-                    <div class="icon-container h-16 w-16 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center mb-8 group-hover:from-black group-hover:to-gray-800 group-hover:text-white shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-gray-600 transition-colors">Mahesa Tech</h3>
-                    <p class="text-xs font-bold text-gray-400 mb-5 tracking-widest uppercase">AUTOMATION & LABS</p>
-                    <p class="text-gray-600 leading-relaxed mb-8 text-base">
-                        Solusi otomasi Python, Bot Telegram, dan Personal Dashboard untuk produktivitas dan efisiensi sistem.
-                    </p>
-                    <a href="#" class="inline-flex items-center text-sm font-bold underline decoration-2 decoration-gray-300 hover:decoration-black transition-all group-hover:translate-x-2">
-                        See Projects
-                        <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-                </div>
-
-                <div class="card-shine bg-white p-10 rounded-3xl border-2 border-gray-100 hover-lift group cursor-pointer">
-                    <div class="icon-container h-16 w-16 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center mb-8 group-hover:from-black group-hover:to-gray-800 group-hover:text-white shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-gray-600 transition-colors">Mahesa Ventures</h3>
-                    <p class="text-xs font-bold text-gray-400 mb-5 tracking-widest uppercase">SELF-GROWTH & R&D</p>
-                    <p class="text-gray-600 leading-relaxed mb-8 text-base">
-                        Inkubasi project open-source, tracking "Upgrade Diri 1 Tahun", dan eksplorasi ide kreatif.
-                    </p>
-                    <a href="#" class="inline-flex items-center text-sm font-bold underline decoration-2 decoration-gray-300 hover:decoration-black transition-all group-hover:translate-x-2">
-                        Read Journal
-                        <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Vision Section -->
-    <section id="vision" class="py-32 bg-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-gray-50 to-transparent opacity-50"></div>
-        
-        <div class="max-w-5xl mx-auto px-6 relative z-10">
-            <div class="fade-in text-center space-y-10">
-                <div class="inline-block px-5 py-2 rounded-full bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 text-xs font-bold tracking-widest uppercase text-gray-600">
-                    Our Philosophy
-                </div>
-                
-                <h2 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
-                    Building Systems That <br class="hidden md:block"> 
-                    <span class="gradient-text">Empower Human Potential</span>
-                </h2>
-                
-                <p class="text-xl text-mahesa-gray max-w-3xl mx-auto font-light leading-relaxed">
-                    Kami percaya bahwa teknologi terbaik adalah yang tak terlihat—bekerja di latar belakang untuk memberi Anda lebih banyak waktu, energi, dan kebebasan untuk fokus pada hal yang benar-benar penting.
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16">
-                    <div class="p-8 border-2 border-gray-100 rounded-2xl hover:border-black hover:scale-105 hover:shadow-2xl transition-all cursor-default">
-                        <div class="text-5xl mb-6">🎯</div>
-                        <h4 class="font-extrabold text-xl mb-3">Purposeful</h4>
-                        <p class="text-sm text-gray-600 leading-relaxed">Setiap solusi dirancang dengan tujuan jelas dan dampak terukur.</p>
-                    </div>
-                    <div class="p-8 border-2 border-gray-100 rounded-2xl hover:border-black hover:scale-105 hover:shadow-2xl transition-all cursor-default">
-                        <div class="text-5xl mb-6">⚡</div>
-                        <h4 class="font-extrabold text-xl mb-3">Efficient</h4>
-                        <p class="text-sm text-gray-600 leading-relaxed">Otomasi cerdas yang menghemat waktu tanpa mengorbankan kualitas.</p>
-                    </div>
-                    <div class="p-8 border-2 border-gray-100 rounded-2xl hover:border-black hover:scale-105 hover:shadow-2xl transition-all cursor-default">
-                        <div class="text-5xl mb-6">✨</div>
-                        <h4 class="font-extrabold text-xl mb-3">Aesthetic</h4>
-                        <p class="text-sm text-gray-600 leading-relaxed">Fungsi bertemu dengan desain untuk pengalaman yang indah.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-32 bg-gradient-to-b from-gray-50 to-gray-100">
-        <div class="max-w-5xl mx-auto px-6 text-center fade-in">
-            <h3 class="text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">Ready to Integrate?</h3>
-            <p class="text-xl text-mahesa-gray mb-12 max-w-3xl mx-auto leading-relaxed">
-                Bergabunglah dengan ekosistem Mahesa Group dan mulai transformasi digital Anda hari ini.
+            <p>
+              Fokus kami adalah membangun portfolio yang saling terhubung:
+              properti sebagai landbase, F&amp;B untuk cashflow, dan digital ventures
+              sebagai growth engine. Semua digerakkan oleh tim yang lean namun
+              execution-driven.
             </p>
-            <a href="#contact" class="btn-primary inline-block px-12 py-6 bg-black text-white font-bold rounded-xl text-lg relative z-10">
-                Get Started
-            </a>
+          </div>
+
+          <div class="about-highlights">
+            <div class="about-highlight">
+              <div class="about-highlight-title">Thesis Investasi</div>
+              <div>
+                Bisnis yang punya
+                <strong>cashflow jelas</strong>, basis pelanggan kuat,
+                dan bisa didorong lewat digital &amp; branding.
+              </div>
+            </div>
+            <div class="about-highlight">
+              <div class="about-highlight-title">Cara Kerja</div>
+              <div>
+                Kombinasi
+                <strong>operational excellence</strong>,
+                sistem yang rapi, dan pengambilan keputusan berbasis data.
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="about-meta">
+          <div>
+            <strong>Fokus geografis</strong>
+            <div class="badge-list">
+              <span class="badge">Jabodetabek</span>
+              <span class="badge">Jawa Barat</span>
+              <span class="badge">Kota tier-2 potensial</span>
+            </div>
+          </div>
+          <div>
+            <strong>Stage &amp; tipe deal</strong>
+            <div class="badge-list">
+              <span class="badge">Seed – Growth</span>
+              <span class="badge">Acquisition</span>
+              <span class="badge">Joint Venture</span>
+            </div>
+          </div>
+          <div>
+            <strong>Peran Mahesa Group</strong>
+            <div class="badge-list">
+              <span class="badge">Strategic capital</span>
+              <span class="badge">Mentoring founder</span>
+              <span class="badge">Operational playbook</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact" class="bg-white border-t-2 border-gray-100 py-16">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-6 md:mb-0 text-center md:text-left">
-                <p class="font-extrabold text-2xl mb-2">MAHESA GROUP</p>
-                <p class="text-gray-500 text-sm">Designed with precision by Dahlan Revara Mahesa.</p>
-            </div>
-            <div class="flex space-x-8">
-                <a href="#" class="text-gray-400 hover:text-black transition-all hover:scale-125 transform">
-                    <span class="sr-only">GitHub</span>
-                    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-black transition-all hover:scale-125 transform">
-                    <span class="sr-only">Email</span>
-                    <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                </a>
-            </div>
+    <!-- BUSINESS UNITS -->
+    <section id="business">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Unit Usaha</div>
+          <h2 class="section-title">Lini bisnis di dalam ekosistem Mahesa Group.</h2>
         </div>
+        <p class="section-subtitle">
+          Setiap unit usaha punya positioning jelas, namun tetap terkoneksi
+          satu sama lain dalam satu ekosistem yang saling menguatkan.
+        </p>
+      </div>
+
+      <div class="business-grid">
+        <div class="business-card">
+          <div class="business-label">01 · Property &amp; Living</div>
+          <div class="business-name">Mahesa Living &amp; Property</div>
+          <div class="business-tagline">
+            Portofolio rumah tinggal, kos-kosan, dan komersial untuk cashflow stabil.
+          </div>
+          <div class="business-focus">
+            Fokus: sewa jangka panjang, kos eksklusif, dan asset repositioning.
+          </div>
+          <div class="business-footer">
+            <span>Unit: 30+ doors</span>
+            <span class="pill-small">Status: Active</span>
+          </div>
+        </div>
+
+        <div class="business-card">
+          <div class="business-label">02 · Food &amp; Beverage</div>
+          <div class="business-name">Mahesa F&amp;B Collective</div>
+          <div class="business-tagline">
+            Brand F&amp;B yang scalable dengan konsep young &amp; profitable.
+          </div>
+          <div class="business-focus">
+            Fokus: coffee shop, cloud kitchen, dan street-food brandable.
+          </div>
+          <div class="business-footer">
+            <span>Brand: 4 aktif</span>
+            <span class="pill-small">Open partnership</span>
+          </div>
+        </div>
+
+        <div class="business-card">
+          <div class="business-label">03 · Digital Ventures</div>
+          <div class="business-name">Mahesa Digital Labs</div>
+          <div class="business-tagline">
+            Studio untuk membangun &amp; investasi di aset digital dan produk teknologi.
+          </div>
+          <div class="business-focus">
+            Fokus: SaaS ringan, produk edukasi, digital IP &amp; online brands.
+          </div>
+          <div class="business-footer">
+            <span>Projects: 10+</span>
+            <span class="pill-small">High growth</span>
+          </div>
+        </div>
+
+        <div class="business-card">
+          <div class="business-label">04 · Advisory &amp; Consulting</div>
+          <div class="business-name">Mahesa Advisory</div>
+          <div class="business-tagline">
+            Mendampingi founder &amp; business owner memperbaiki struktur dan sistem.
+          </div>
+          <div class="business-focus">
+            Fokus: bisnis keluarga, UMKM naik kelas, dan professionalisation.
+          </div>
+          <div class="business-footer">
+            <span>Klien: 20+</span>
+            <span class="pill-small">By referral</span>
+          </div>
+        </div>
+
+        <div class="business-card">
+          <div class="business-label">05 · Education &amp; Media</div>
+          <div class="business-name">Mahesa Academy</div>
+          <div class="business-tagline">
+            Platform konten &amp; program edukasi seputar bisnis dan investasi.
+          </div>
+          <div class="business-focus">
+            Fokus: kelas online, workshop, dan community-based learning.
+          </div>
+          <div class="business-footer">
+            <span>Students: 500+</span>
+            <span class="pill-small">Beta stage</span>
+          </div>
+        </div>
+
+        <div class="business-card">
+          <div class="business-label">06 · Strategic Investments</div>
+          <div class="business-name">Mahesa Capital</div>
+          <div class="business-tagline">
+            Co-investment vehicle untuk deal bersama partner strategis.
+          </div>
+          <div class="business-focus">
+            Fokus: minority stake di bisnis promising dengan founder kuat.
+          </div>
+          <div class="business-footer">
+            <span>Deals: curated</span>
+            <span class="pill-small">By invitation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Portofolio Pilihan</div>
+          <h2 class="section-title">Beberapa inisiatif yang sudah dieksekusi.</h2>
+        </div>
+        <p class="section-subtitle">
+          Ini hanya sebagian dari ekosistem yang dibangun Mahesa Group.
+          Full deal list tersedia upon request untuk partner dan investor.
+        </p>
+      </div>
+
+      <div class="portfolio-grid">
+        <div class="portfolio-card">
+          <div class="portfolio-tag">Real Estate</div>
+          <div class="portfolio-title">Repositioning Rumah Menjadi Kos Eksklusif</div>
+          <div class="portfolio-client">Internal asset · Jakarta Selatan</div>
+          <p>
+            Mengubah rumah tinggal jadi kos eksklusif 12 kamar dengan optimasi layout,
+            pricing, dan digital marketing.
+          </p>
+          <div class="portfolio-meta">
+            <span>Yield naik &gt; 2x</span>
+            <span class="portfolio-link">Detail by request</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-tag">F&amp;B Brand</div>
+          <div class="portfolio-title">Brand Kopi To-go Berbasis Kawasan Kantor</div>
+          <div class="portfolio-client">In-house brand · Jabodetabek</div>
+          <p>
+            Coffee kiosk dengan fokus high-turnover, menu simple, dan sistem operasional lean.
+          </p>
+          <div class="portfolio-meta">
+            <span>Payback &lt; 18 bulan</span>
+            <span class="portfolio-link">Detail by request</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-tag">Digital Product</div>
+          <div class="portfolio-title">Platform Edukasi Bisnis untuk Owner</div>
+          <div class="portfolio-client">Mahesa Academy</div>
+          <p>
+            Kelas online dan playbook praktis untuk pemilik usaha yang ingin upgrade sistem.
+          </p>
+          <div class="portfolio-meta">
+            <span>500+ peserta</span>
+            <span class="portfolio-link">Detail by request</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-tag">Advisory</div>
+          <div class="portfolio-title">Restrukturisasi Bisnis Keluarga</div>
+          <div class="portfolio-client">Client · Bandung</div>
+          <p>
+            Membantu generasi kedua merapikan struktur, pembukuan, dan alur keputusan.
+          </p>
+          <div class="portfolio-meta">
+            <span>Profit margin naik</span>
+            <span class="portfolio-link">Detail by request</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-tag">Co-Investment</div>
+          <div class="portfolio-title">Minority Stake di Brand F&amp;B Lokal</div>
+          <div class="portfolio-client">Partnership deal</div>
+          <p>
+            Menyediakan capital + playbook untuk scale up outlet dan memperkuat brand.
+          </p>
+          <div class="portfolio-meta">
+            <span>Expansion ready</span>
+            <span class="portfolio-link">Detail by request</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-tag">Content &amp; Media</div>
+          <div class="portfolio-title">Konten Bisnis &amp; Cashflow untuk Gen Z</div>
+          <div class="portfolio-client">Mahesa Media</div>
+          <p>
+            Short-form content edukatif yang fokus ke mindset, strategi, dan execution.
+          </p>
+          <div class="portfolio-meta">
+            <span>Organic growth</span>
+            <span class="portfolio-link">Detail by request</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NUMBERS -->
+    <section id="numbers">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Angka &amp; Traction</div>
+          <h2 class="section-title">Short summary dalam bahasa angka.</h2>
+        </div>
+        <p class="section-subtitle">
+          Data di bawah merupakan agregat dan estimasi internal.
+          Detail lengkap tersedia dalam confidential deck.
+        </p>
+      </div>
+
+      <div class="numbers-grid">
+        <div class="number-card">
+          <div class="number-label">Aggregated AUM (Aset Kelolaan)</div>
+          <div class="number-value">Rp 250M+</div>
+          <div class="number-caption">Termasuk properti, bisnis operasional, dan aset digital.</div>
+        </div>
+
+        <div class="number-card">
+          <div class="number-label">Revenue gabungan tahunan</div>
+          <div class="number-value">Rp 35M+</div>
+          <div class="number-caption">Dari berbagai unit usaha dan partnership aktif.</div>
+        </div>
+
+        <div class="number-card">
+          <div class="number-label">Tim &amp; talent</div>
+          <div class="number-value">40+</div>
+          <div class="number-caption">Karyawan langsung &amp; part-time operasional.</div>
+        </div>
+
+        <div class="number-card">
+          <div class="number-label">Track record</div>
+          <div class="number-value">10+ tahun</div>
+          <div class="number-caption">Membangun, menjalankan, dan menyelamatkan bisnis.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Kontak &amp; Partnership</div>
+          <h2 class="section-title">Bangun sesuatu yang lebih besar bersama.</h2>
+        </div>
+        <p class="section-subtitle">
+          Untuk pitch deck lengkap, proposal kerja sama, atau co-investment,
+          silakan isi form singkat di bawah. Tim kami akan follow up secara selektif.
+        </p>
+      </div>
+
+      <div class="contact-grid card">
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('Form dummy – silakan integrasikan dengan backend atau layanan form.');">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="name">Nama Lengkap</label>
+              <input id="name" name="name" type="text" placeholder="Nama Anda" required />
+            </div>
+            <div class="form-field">
+              <label for="company">Perusahaan / Brand</label>
+              <input id="company" name="company" type="text" placeholder="Nama perusahaan / brand" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="email@domain.com" required />
+            </div>
+            <div class="form-field">
+              <label for="topic">Topik</label>
+              <input id="topic" name="topic" type="text" placeholder="Co-investment, JV, advisory, dll." />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="message">Ringkasan Singkat</label>
+            <textarea id="message" name="message" placeholder="Ceritakan secara singkat: bisnis Anda, kebutuhan, atau ide kerja sama."></textarea>
+          </div>
+
+          <div>
+            <button class="btn-primary" type="submit">
+              Kirim &amp; Request Deck
+              <span>↗</span>
+            </button>
+          </div>
+        </form>
+
+        <div>
+          <strong>Detail kontak</strong>
+          <ul class="contact-meta-list">
+            <li><span>Email:</span> contact@mahesagroup.id</li>
+            <li><span>WhatsApp (opsional):</span> +62 xxx xxxx xxxx</li>
+            <li><span>Lokasi utama:</span> Jakarta, Indonesia</li>
+          </ul>
+
+          <div class="contact-socials">
+            <a href="#">LinkedIn</a>
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+            <a href="#">Substack / Newsletter</a>
+          </div>
+
+          <p style="margin-top: 1rem; font-size: 0.78rem; color: var(--text-muted);">
+            Kami prioritaskan kolaborasi jangka panjang dengan
+            <strong>founder yang mau kerja keras dan terbuka dengan struktur</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div>© <span id="year"></span> Mahesa Group. All rights reserved.</div>
+        <div>Confidential overview · For partners &amp; investors.</div>
+      </div>
     </footer>
+  </main>
 
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const closeMenu = document.getElementById('close-menu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-        });
-        
-        closeMenu.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-        });
+  <script>
+    // Tahun otomatis di footer
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-        // Close menu when clicking links
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-            });
-        });
+    // Toggle nav untuk mobile
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
 
-        // Scroll Animation Observer
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 100);
-                }
-            });
-        }, observerOptions);
-
-        // Observe all fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Add visible class to first section immediately
-        setTimeout(() => {
-            document.querySelector('.fade-in').classList.add('visible');
-        }, 300);
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
-
+    // Tutup nav ketika link diklik (mobile)
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+      });
+    });
+  </script>
 </body>
 </html>
