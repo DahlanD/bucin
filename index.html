@@ -3,43 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mahesa Group | Official Website</title>
-  <meta name="description" content="Mahesa Group - Grup usaha yang berfokus pada pertumbuhan berkelanjutan, kemitraan, dan kepercayaan jangka panjang." />
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+  <title>Mahesa Group | Portfolio & Business Profile</title>
+  <meta name="description" content="Profil bisnis, unit usaha, dan portofolio Mahesa Group milik Dahlan Revara Mahesa." />
   <style>
-    :root {
-      --bg-dark: #04172c;
-      --bg-soft: #071c33;
-      --accent: #e2c48f;
-      --text-main: #f5f5f5;
-      --text-muted: #b5bdc9;
-      --card-bg: #0b2341;
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --radius-xl: 18px;
-      --radius-full: 999px;
-      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.4);
-      --max-width: 1100px;
-    }
-
-    * {
+    /* ====== RESET & GLOBAL ====== */
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #0b2647 0, #020813 55%, #01030a 100%);
-      color: var(--text-main);
-      -webkit-font-smoothing: antialiased;
+    :root {
+      --primary: #0f172a;
+      --primary-soft: #1e293b;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --bg: #020617;
+      --bg-soft: #020617;
+      --text: #e5e7eb;
+      --text-muted: #9ca3af;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --border: rgba(148, 163, 184, 0.2);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      scroll-behavior: smooth;
     }
 
     img {
@@ -47,793 +43,1360 @@
       display: block;
     }
 
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    a {
+      text-decoration: none;
+      color: inherit;
     }
 
-    /* NAVBAR */
+    /* ====== LAYOUT ====== */
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 3rem;
+    }
 
-    .nav {
+    /* ====== NAVBAR ====== */
+    .navbar {
       position: sticky;
       top: 0;
-      z-index: 20;
-      backdrop-filter: blur(16px);
-      background: linear-gradient(to bottom, rgba(2, 8, 20, 0.95), rgba(2, 8, 20, 0.85), transparent);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.95),
+        rgba(15, 23, 42, 0.7),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
     }
 
-    .nav-inner {
-      max-width: var(--max-width);
+    .navbar-inner {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 16px 20px 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      padding: 0.9rem 1.5rem;
+      gap: 1rem;
     }
 
-    .nav-brand {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 0.75rem;
     }
 
-    .nav-logo {
-      width: 38px;
-      height: 38px;
+    .brand-logo {
+      width: 34px;
+      height: 34px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: radial-gradient(circle at 30% 10%, #ffffff 0, #f3f4f6 30%, #d4d4d8 100%);
+      background: radial-gradient(circle at 20% 20%, #38bdf8, #0ea5e9, #0f172a 70%);
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      font-weight: 700;
+      color: #e0f2fe;
+      font-size: 0.95rem;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
     }
 
-    .nav-logo img {
-      width: 85%;
-      height: auto;
-      object-fit: contain;
+    .brand-text-main {
+      font-weight: 650;
+      letter-spacing: 0.03em;
+      font-size: 1.05rem;
     }
 
-    .nav-title-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-
-    .nav-title-text span:first-child {
-      font-family: 'Playfair Display', serif;
-      letter-spacing: 0.12em;
-      font-size: 12px;
-      text-transform: uppercase;
-    }
-
-    .nav-title-text span:last-child {
-      font-size: 10px;
-      text-transform: uppercase;
+    .brand-text-sub {
+      font-size: 0.75rem;
       color: var(--text-muted);
-      letter-spacing: 0.18em;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 20px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
+      gap: 1.25rem;
+      font-size: 0.9rem;
     }
 
     .nav-links a {
       color: var(--text-muted);
-      padding-bottom: 4px;
-      border-bottom: 1px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, #38bdf8, #0ea5e9);
+      border-radius: 999px;
+      transition: width 0.2s ease;
     }
 
     .nav-links a:hover {
-      color: var(--text-main);
-      border-color: rgba(226, 196, 143, 0.7);
+      color: #e5e7eb;
       transform: translateY(-1px);
     }
 
-    .nav-cta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
-    .btn {
-      border-radius: var(--radius-full);
-      padding: 7px 16px;
-      font-size: 12px;
-      font-weight: 500;
-      border: 1px solid transparent;
+    .nav-cta {
+      font-size: 0.85rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      color: #e0f2fe;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 55%);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
       cursor: pointer;
+      transition: background 0.2s ease, transform 0.16s ease, box-shadow 0.16s ease;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+
+    .nav-cta span {
+      font-size: 0.95rem;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(to right, rgba(56, 189, 248, 0.18), rgba(59, 130, 246, 0.1));
+      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.75);
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .nav-toggle span {
+      width: 22px;
+      height: 2px;
+      border-radius: 999px;
+      background: #e5e7eb;
+    }
+
+    /* ====== HERO ====== */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.8fr);
+      gap: 2.5rem;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+      align-items: center;
+    }
+
+    .hero-left {
+      position: relative;
+    }
+
+    .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-      white-space: nowrap;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      padding: 0.25rem 0.6rem 0.25rem 0.25rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      margin-bottom: 1.1rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-badge-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #22c55e, #16a34a, #022c22);
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.35);
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 3vw, 2.7rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-title span.accent {
+      background: linear-gradient(to right, #38bdf8, #a855f7);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 35rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-subtitle strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.6rem;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #f4d9a4, #e2c48f);
-      color: #1f2933;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(to right, #38bdf8, #0ea5e9);
+      color: #0b1120;
+      box-shadow: 0 18px 40px rgba(8, 47, 73, 0.9);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
     }
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.7);
+      filter: brightness(1.02);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.95);
     }
 
     .btn-ghost {
-      background: rgba(15, 23, 42, 0.7);
-      color: var(--text-muted);
-      border-color: rgba(148, 163, 184, 0.4);
+      padding: 0.7rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--text);
+      backdrop-filter: blur(12px);
+      transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
     }
 
     .btn-ghost:hover {
-      color: var(--text-main);
-      border-color: rgba(226, 196, 143, 0.7);
       transform: translateY(-1px);
+      border-color: rgba(56, 189, 248, 0.7);
+      background: rgba(15, 23, 42, 0.95);
     }
 
-    .btn-icon {
-      font-size: 14px;
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
-    /* LAYOUT */
-
-    .main {
-      flex: 1;
+    .metric-item {
+      padding-left: 0.9rem;
+      border-left: 1px solid rgba(148, 163, 184, 0.4);
     }
 
-    .section {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 32px 20px;
-    }
-
-    @media (min-width: 900px) {
-      .section {
-        padding: 54px 20px;
-      }
-    }
-
-    /* HERO */
-
-    .hero {
-      padding-top: 40px;
-      padding-bottom: 20px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
-      gap: 32px;
-      align-items: center;
-    }
-
-    .hero-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: 32px;
-      line-height: 1.15;
-      letter-spacing: 0.06em;
+    .metric-label {
       text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 0.72rem;
+      margin-bottom: 0.15rem;
+      color: #9ca3af;
     }
 
-    .hero-heading strong {
-      display: block;
-      font-size: 38px;
+    .metric-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #e5e7eb;
     }
 
-    @media (min-width: 900px) {
-      .hero-heading {
-        font-size: 40px;
-      }
-      .hero-heading strong {
-        font-size: 52px;
-      }
-    }
-
-    .hero-subtitle {
-      margin-top: 18px;
-      font-size: 14px;
+    .metric-value span {
+      font-size: 0.85rem;
       color: var(--text-muted);
-      max-width: 460px;
+      font-weight: 500;
     }
 
-    .hero-badges {
-      margin-top: 22px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 11px;
-    }
-
-    .badge {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 6px 12px;
-      color: var(--text-muted);
-      background: rgba(15, 23, 42, 0.7);
-    }
-
-    .hero-ctas {
-      margin-top: 26px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .hero-caption {
-      margin-top: 12px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
+    /* Hero Right */
     .hero-right {
-      justify-self: center;
-      width: 100%;
-      max-width: 360px;
+      position: relative;
     }
 
     .hero-card {
+      position: relative;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), rgba(15, 23, 42, 0.95));
       border-radius: 26px;
-      border: 1px solid var(--border-subtle);
-      background: radial-gradient(circle at top, #102749 0, #020818 60%);
-      padding: 22px 20px 18px;
+      padding: 1.5rem 1.4rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
       box-shadow: var(--shadow-soft);
-      position: relative;
       overflow: hidden;
+      min-height: 260px;
     }
 
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -80px;
-      background:
-        radial-gradient(circle at top left, rgba(226, 196, 143, 0.14), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.25), transparent 60%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .hero-card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-logo-wrap {
-      width: 110px;
-      height: 110px;
-      margin: 0 auto 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(248, 250, 252, 0.4);
-      background: radial-gradient(circle at 30% 10%, #ffffff 0, #f3f4f6 40%, #cbd5f5 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .hero-logo-wrap img {
-      width: 80%;
-      object-fit: contain;
+    .hero-card-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #bae6fd;
+      margin-bottom: 0.8rem;
     }
 
     .hero-card-title {
-      text-align: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
     }
 
-    .hero-card-sub {
-      text-align: center;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
+    .hero-card-subtitle {
+      font-size: 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 16px;
+      margin-bottom: 1.2rem;
     }
 
-    .hero-meta {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-    }
-
-    .hero-meta span strong {
-      display: block;
-      color: var(--text-main);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    .hero-divider {
-      height: 1px;
-      border-radius: 999px;
-      background: linear-gradient(to right, transparent, rgba(226, 196, 143, 0.7), transparent);
-      margin: 10px 0 14px;
-    }
-
-    .hero-footnote {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-align: center;
-    }
-
-    /* SECTIONS */
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      margin-bottom: 14px;
-    }
-
-    .section-kicker {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .section-description {
-      font-size: 14px;
-      color: var(--text-muted);
-      max-width: 620px;
-    }
-
-    .grid-2 {
+    .hero-pill-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 24px;
-      margin-top: 24px;
-    }
-
-    .about-highlight {
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-soft);
-      padding: 18px 18px 16px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .about-highlight strong {
-      color: var(--text-main);
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-      font-size: 11px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.1rem;
     }
 
     .pill {
-      padding: 6px 11px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: var(--text-muted);
-    }
-
-    .stat-row {
+      padding: 0.55rem 0.7rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.75rem;
       display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      margin-top: 18px;
-      font-size: 11px;
-      color: var(--text-muted);
+      flex-direction: column;
+      gap: 0.25rem;
     }
 
-    .stat-item span:first-child {
-      display: block;
-      font-size: 18px;
-      color: var(--accent);
-      font-family: 'Playfair Display', serif;
-      letter-spacing: 0.06em;
-    }
-
-    /* SERVICES */
-
-    .cards {
-      margin-top: 26px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      background: var(--card-bg);
-      padding: 18px 16px 16px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .card-label {
-      font-size: 11px;
+    .pill-label {
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-      margin-bottom: 6px;
+      letter-spacing: 0.1em;
+      font-size: 0.7rem;
+      color: #9ca3af;
     }
 
-    .card-title {
-      font-size: 14px;
-      color: var(--text-main);
-      font-weight: 600;
-      margin-bottom: 8px;
+    .pill-value {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #e5e7eb;
     }
 
-    .card ul {
-      margin-top: 8px;
-      padding-left: 16px;
-      list-style: disc;
-    }
-
-    .card ul li {
-      margin-bottom: 4px;
-    }
-
-    /* CONTACT */
-
-    .contact {
-      margin-top: 28px;
-      border-radius: 22px;
-      border: 1px solid rgba(226, 196, 143, 0.4);
-      background: radial-gradient(circle at top left, rgba(226, 196, 143, 0.18), transparent 55%), rgba(4, 12, 24, 0.96);
-      padding: 20px 18px 18px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 18px;
-      align-items: center;
-    }
-
-    .contact-text {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .contact-text strong {
-      color: var(--text-main);
-    }
-
-    .contact-ctas {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: flex-end;
-    }
-
-    .contact-meta {
-      margin-top: 6px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* FOOTER */
-
-    .footer {
-      border-top: 1px solid rgba(148, 163, 184, 0.18);
-      padding: 14px 20px 20px;
-      margin-top: 18px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .footer-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
+    .hero-card-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      font-size: 0.75rem;
+      padding-top: 0.7rem;
+      border-top: 1px dashed rgba(148, 163, 184, 0.5);
+      color: var(--text-muted);
     }
 
-    .footer-links {
+    .hero-status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3);
+      margin-right: 0.35rem;
+    }
+
+    .hero-orbit {
+      position: absolute;
+      inset: -80px;
+      opacity: 0.18;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 0 0, rgba(125, 211, 252, 0.9), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(167, 139, 250, 0.6), transparent 55%),
+        radial-gradient(circle at 0 100%, rgba(45, 212, 191, 0.5), transparent 55%);
+      mix-blend-mode: screen;
+    }
+
+    /* ====== SECTION GENERIC ====== */
+    section {
+      margin-top: 2.7rem;
+    }
+
+    .section-header {
       display: flex;
-      gap: 14px;
+      justify-content: space-between;
       flex-wrap: wrap;
+      gap: 1rem;
+      align-items: flex-end;
+      margin-bottom: 1.2rem;
     }
 
-    .footer-links a:hover {
-      color: var(--text-main);
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 600;
     }
 
-    /* RESPONSIVE */
+    .section-kicker {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
 
-    @media (max-width: 768px) {
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      max-width: 26rem;
+    }
+
+    /* ====== ABOUT ====== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 1.7rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1.3rem 1.4rem;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.85);
+    }
+
+    .about-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .about-text p + p {
+      margin-top: 0.8rem;
+    }
+
+    .about-highlights {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .about-highlight {
+      font-size: 0.8rem;
+      padding: 0.75rem 0.85rem;
+      border-radius: 0.9rem;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+    }
+
+    .about-highlight-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .about-meta {
+      display: grid;
+      gap: 0.7rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .badge-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.35rem;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    /* ====== BUSINESS UNITS ====== */
+    .business-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.3rem;
+    }
+
+    .business-card {
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.06), rgba(15, 23, 42, 0.98));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1.1rem 1.1rem 1.1rem;
+      font-size: 0.84rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    .business-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+    }
+
+    .business-name {
+      font-weight: 600;
+      font-size: 0.98rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .business-tagline {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.1rem;
+    }
+
+    .business-focus {
+      font-size: 0.76rem;
+      color: #bae6fd;
+    }
+
+    .business-footer {
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pill-small {
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      font-size: 0.7rem;
+      color: #e0f2fe;
+      background: rgba(8, 47, 73, 0.8);
+    }
+
+    /* ====== PORTFOLIO ====== */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .portfolio-card {
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.1), rgba(15, 23, 42, 0.96));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 0.9rem 0.95rem 1rem;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .portfolio-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    .portfolio-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .portfolio-client {
+      font-size: 0.78rem;
+      color: #a5b4fc;
+    }
+
+    .portfolio-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .portfolio-link {
+      font-size: 0.75rem;
+      text-decoration: underline;
+      cursor: pointer;
+      color: #bae6fd;
+    }
+
+    /* ====== NUMBERS / METRICS ====== */
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .number-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 0.9rem 1rem;
+      background: rgba(15, 23, 42, 0.94);
+      font-size: 0.8rem;
+      box-shadow: 0 12px 25px rgba(15, 23, 42, 0.95);
+    }
+
+    .number-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .number-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .number-caption {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ====== CONTACT ====== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.5fr);
+      gap: 1.7rem;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+    }
+
+    .form-field {
+      display: grid;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+    }
+
+    .form-field label {
+      color: var(--text-muted);
+    }
+
+    .form-field input,
+    .form-field textarea {
+      border-radius: 0.75rem;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      padding: 0.55rem 0.7rem;
+      font-size: 0.82rem;
+      color: var(--text);
+      outline: none;
+      resize: vertical;
+      min-height: 40px;
+    }
+
+    .form-field textarea {
+      min-height: 96px;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color: rgba(56, 189, 248, 0.8);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6);
+    }
+
+    .contact-meta-list {
+      list-style: none;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: grid;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .contact-meta-list li span {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .contact-socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.8rem;
+    }
+
+    .contact-socials a {
+      font-size: 0.78rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+    }
+
+    /* ====== FOOTER ====== */
+    footer {
+      margin-top: 2.5rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 960px) {
       .hero {
-        grid-template-columns: minmax(0, 1fr);
-        padding-top: 24px;
+        grid-template-columns: minmax(0, 1.4fr);
       }
-
       .hero-right {
         order: -1;
       }
-
-      .grid-2 {
+      .about-grid {
         grid-template-columns: minmax(0, 1fr);
       }
-
-      .contact {
+      .business-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .portfolio-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .numbers-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .contact-grid {
         grid-template-columns: minmax(0, 1fr);
       }
+    }
 
+    @media (max-width: 720px) {
+      .navbar-inner {
+        padding-inline: 1.1rem;
+      }
       .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 0.9rem 1.5rem 1rem;
+        background: rgba(15, 23, 42, 0.98);
+        border-bottom: 1px solid rgba(30, 64, 175, 0.8);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: max-height 0.2s ease, opacity 0.18s ease;
+      }
+      .nav-links.open {
+        max-height: 240px;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-cta {
         display: none;
       }
+      .nav-toggle {
+        display: flex;
+      }
+      .hero {
+        padding-top: 2rem;
+      }
+      .page {
+        padding-inline: 1.1rem;
+      }
+    }
 
-      .nav-cta {
-        margin-left: auto;
+    @media (max-width: 540px) {
+      .business-grid,
+      .portfolio-grid,
+      .numbers-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .about-highlights {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .form-row {
+        grid-template-columns: minmax(0, 1fr);
       }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <!-- NAVBAR -->
-    <header class="nav">
-      <div class="nav-inner">
-        <div class="nav-brand">
-          <div class="nav-logo">
-            <!-- Ganti src dengan file logo kamu -->
-            <img src="logo-mahesa.png" alt="Logo Mahesa Group">
-          </div>
-          <div class="nav-title-text">
-            <span>MAHESA GROUP</span>
-            <span>STRATEGIC BUSINESS HOLDING</span>
-          </div>
-        </div>
-        <nav class="nav-links">
-          <a href="#about">About</a>
-          <a href="#services">Layanan</a>
-          <a href="#contact">Kontak</a>
-        </nav>
-        <div class="nav-cta">
-          <a href="https://wa.me/639463359582" target="_blank" rel="noopener" class="btn btn-primary">
-            <span class="btn-icon">✉</span>
-            <span>Hubungi via WhatsApp</span>
-          </a>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="brand">
+        <div class="brand-logo">MG</div>
+        <div>
+          <div class="brand-text-main">Mahesa Group</div>
+          <div class="brand-text-sub">Strategic Investments & Ventures</div>
         </div>
       </div>
-    </header>
 
-    <main class="main">
-      <!-- HERO -->
-      <section class="section hero" id="home">
+      <nav>
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+          <a href="#home">Beranda</a>
+          <a href="#about">Tentang</a>
+          <a href="#business">Unit Usaha</a>
+          <a href="#portfolio">Portofolio</a>
+          <a href="#numbers">Angka</a>
+          <a href="#contact">Kontak</a>
+        </div>
+      </nav>
+
+      <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+        <span>Request Deck</span>
+        <span>↗</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="page">
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <span>Building sustainable value for the next decade.</span>
+        </div>
+        <h1 class="hero-title">
+          Mahesa Group,
+          <span class="accent">ecosystem builder</span>
+          untuk bisnis yang berani tumbuh.
+        </h1>
+        <p class="hero-subtitle">
+          Mahesa Group adalah holding &amp; investment company yang dimiliki dan dipimpin oleh
+          <strong>Dahlan Revara Mahesa</strong>, berfokus pada
+          <strong>strategic ventures, digital assets, dan real sector</strong>.
+          Menggabungkan capital, network, dan eksekusi untuk mempercepat pertumbuhan bisnis di Indonesia.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+            Lihat Profil Grup
+            <span>↓</span>
+          </button>
+          <button class="btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+            Hubungi Manajemen
+          </button>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <div class="metric-label">Aset Kelolaan</div>
+            <div class="metric-value">Rp 25M<span>+ (aggregated)</span></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Unit Usaha</div>
+            <div class="metric-value">6<span> vertical aktif</span></div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">Kota Operasi</div>
+            <div class="metric-value">3<span> fokus utama</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-orbit"></div>
+          <div class="hero-card-tag">Mahesa Group Snapshot</div>
+          <div class="hero-card-title">Founder-led, cashflow driven, growth-focused.</div>
+          <div class="hero-card-subtitle">
+            Portofolio Mahesa Group memadukan bisnis dengan cashflow harian,
+            aset jangka panjang, dan venture bets yang dikurasi.
+          </div>
+
+          <div class="hero-pill-grid">
+            <div class="pill">
+              <div class="pill-label">Core Verticals</div>
+              <div class="pill-value">Property, F&amp;B, Digital Ventures</div>
+            </div>
+            <div class="pill">
+              <div class="pill-label">Operating Model</div>
+              <div class="pill-value">Active ownership &amp; lean execution</div>
+            </div>
+            <div class="pill">
+              <div class="pill-label">Deal Focus</div>
+              <div class="pill-value">Growth, turnaround, consolidation</div>
+            </div>
+            <div class="pill">
+              <div class="pill-label">Ticket Size</div>
+              <div class="pill-value">Rp 250jt – 5M / deal</div>
+            </div>
+          </div>
+
+          <div class="hero-card-footer">
+            <div>
+              <span class="hero-status-dot"></span>
+              Open untuk co-investment &amp; strategic JV
+            </div>
+            <div>Founder: D. R. Mahesa</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-header">
         <div>
-          <h1 class="hero-heading">
-            <span>Grup usaha dengan fondasi</span>
-            <strong>KUAT, TEGAS, DAN TERARAH.</strong>
-          </h1>
-          <p class="hero-subtitle">
-            Mahesa Group hadir sebagai partner jangka panjang untuk pertumbuhan yang terukur, berbasis kepercayaan, dan dieksekusi dengan disiplin.
-          </p>
-
-          <div class="hero-badges">
-            <div class="badge">Fokus pada value creation</div>
-            <div class="badge">Kemitraan strategis & kolaborasi</div>
-            <div class="badge">Mindset jangka panjang</div>
-          </div>
-
-          <div class="hero-ctas">
-            <a href="https://wa.me/639463359582" target="_blank" rel="noopener" class="btn btn-primary">
-              <span class="btn-icon">➝</span>
-              <span>Diskusi peluang bisnis</span>
-            </a>
-            <a href="https://www.instagram.com/mahesagroup.co?igsh=MWdxaTFuajcyYmdnOQ==" target="_blank" rel="noopener" class="btn btn-ghost">
-              <span class="btn-icon">◎</span>
-              <span>Lihat aktivitas di Instagram</span>
-            </a>
-          </div>
-
-          <p class="hero-caption">
-            Satu komando, banyak lini usaha. Fokus: membangun aset, bukan sekadar mengejar omset.
-          </p>
+          <div class="section-kicker">Tentang Mahesa Group</div>
+          <h2 class="section-title">Fundamental kuat, eksekusi cepat.</h2>
         </div>
-
-        <div class="hero-right">
-          <div class="hero-card">
-            <div class="hero-card-inner">
-              <div class="hero-logo-wrap">
-                <!-- Ganti src dengan file logo kamu -->
-                <img src="logo-mahesa.png" alt="Logo Mahesa Group">
-              </div>
-              <div class="hero-card-title">MAHESA GROUP</div>
-              <div class="hero-card-sub">BUSINESS & PARTNERSHIP</div>
-
-              <div class="hero-meta">
-                <span>
-                  <strong>Fokus</strong>
-                  Growth berkelanjutan & struktur yang rapi.
-                </span>
-                <span>
-                  <strong>Karakter</strong>
-                  Tangguh, disiplin, dan berani ambil keputusan.
-                </span>
-              </div>
-
-              <div class="hero-divider"></div>
-
-              <p class="hero-footnote">
-                Dibangun dengan mentalitas banteng:
-                tidak tergesa, tapi setiap langkah punya tenaga.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ABOUT -->
-      <section class="section" id="about">
-        <div class="section-kicker">TENTANG</div>
-        <h2 class="section-title">MAHESA GROUP</h2>
-        <p class="section-description">
-          Mahesa Group adalah payung yang menaungi berbagai lini usaha dengan satu benang merah:
-          pengelolaan bisnis yang rapi, visi jangka panjang, dan keberanian untuk berkembang di tengah perubahan.
+        <p class="section-subtitle">
+          Mahesa Group dibangun di atas prinsip:
+          <strong>bisnis harus sehat, scalable, dan bernilai jangka panjang</strong>.
+          Fokus di sektor riil dan digital dengan pendekatan yang terukur namun agresif.
         </p>
+      </div>
 
-        <div class="grid-2">
-          <div>
+      <div class="about-grid card">
+        <div>
+          <div class="about-text">
+            <p>
+              Mahesa Group berperan sebagai operator sekaligus capital partner
+              untuk berbagai lini usaha yang dimiliki dan dipegang kendali oleh Dahlan Revara Mahesa.
+              Dari properti, F&amp;B, sampai aset digital, semuanya diarahkan untuk saling menguatkan.
+            </p>
+            <p>
+              Strategi kami sederhana: bangun unit usaha dengan cashflow jelas,
+              disiplin di operasional, dan maksimalkan leverage digital, brand, dan komunitas.
+              Kami lebih suka bisnis yang nyata, pelanggan yang bisa disentuh, dan angka yang bisa diaudit.
+            </p>
+          </div>
+
+          <div class="about-highlights">
             <div class="about-highlight">
-              <strong>DNA kami sederhana:</strong> bangun sistem yang kuat, orang yang tepat, dan aliran bisnis yang sehat.
-              Bukan sekadar jalanin usaha, tapi mengorkestrasi aset yang bisa tumbuh dan bertahan.
-              <div class="pill-row">
-                <div class="pill">Struktur & manajemen</div>
-                <div class="pill">Skalabilitas</div>
-                <div class="pill">Kualitas & integritas</div>
+              <div class="about-highlight-title">Thesis Investasi</div>
+              <div>
+                Bisnis yang punya
+                <strong>cashflow harian / bulanan</strong>, margin sehat,
+                dan potensial di-scale tanpa bakar duit berlebihan.
               </div>
             </div>
+            <div class="about-highlight">
+              <div class="about-highlight-title">Cara Kerja</div>
+              <div>
+                Tim kecil, eksekusi cepat, struktur jelas.
+                <strong>Playbook operasional</strong> dipakai lintas bisnis untuk jaga konsistensi.
+              </div>
+            </div>
+          </div>
+        </div>
 
-            <div class="stat-row">
-              <div class="stat-item">
-                <span>VISION</span>
-                <span>Membangun ekosistem usaha yang solid, saling menguatkan, dan siap naik kelas.</span>
-              </div>
-              <div class="stat-item">
-                <span>MISSION</span>
-                <span>Menjalankan bisnis dengan disiplin, transparansi, dan keberanian ambil peluang.</span>
-              </div>
+        <div class="about-meta">
+          <div>
+            <strong>Fokus geografis</strong>
+            <div class="badge-list">
+              <span class="badge">Jakarta</span>
+              <span class="badge">Jawa Barat</span>
+              <span class="badge">Kota satelit berkembang</span>
             </div>
+          </div>
+          <div>
+            <strong>Stage &amp; tipe deal</strong>
+            <div class="badge-list">
+              <span class="badge">Operated in-house</span>
+              <span class="badge">Joint Venture</span>
+              <span class="badge">Strategic minority stake</span>
+            </div>
+          </div>
+          <div>
+            <strong>Peran Mahesa Group</strong>
+            <div class="badge-list">
+              <span class="badge">Owner &amp; operator</span>
+              <span class="badge">Capital partner</span>
+              <span class="badge">Business architect</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUSINESS UNITS -->
+    <section id="business">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Unit Usaha</div>
+          <h2 class="section-title">Ekosistem bisnis di bawah Mahesa Group.</h2>
+        </div>
+        <p class="section-subtitle">
+          Setiap unit punya positioning yang jelas namun terhubung:
+          properti untuk landbase, F&amp;B untuk cashflow, digital untuk growth &amp; leverage.
+        </p>
+      </div>
+
+      <div class="business-grid">
+        <div class="business-card">
+          <div class="business-label">01 · Property &amp; Living</div>
+          <div class="business-name">Mahesa Living &amp; Property</div>
+          <div class="business-tagline">
+            Portofolio rumah tinggal, kos, dan unit komersial dengan model sewa berulang.
+          </div>
+          <div class="business-focus">
+            Fokus: kos eksklusif, sewa rumah tahunan, dan asset repositioning di area strategis.
+          </div>
+          <div class="business-footer">
+            <span>Unit: 15+ doors</span>
+            <span class="pill-small">Status: Active</span>
+          </div>
+        </div>
+
+        <div class="business-card">
+          <div class="business-label">02 · Food &amp; Beverage</div>
+          <div class="business-name">Mahesa F&amp;B Collective</div>
+          <div class="business-tagline">
+            Brand F&amp;B dengan konsep simple, repeatable, dan dekat dengan daily traffic.
+          </div>
+          <div class="business-focus">
+            Fokus: coffee to-go, dine-in kecil, dan konsep yang scalable di area kantor &amp; kampus.
+          </div>
+          <div class="business-footer">
+            <span>Brand: 3 aktif</span>
+            <span class="pill-small">Open partnership</span>
+          </div>
+        </div>
+
+        <div class="business-card">
+          <div class="business-label">03 · Digital Ventures</div>
+          <div class="business-name">Mahesa Digital Labs</div>
+          <div class="business-tagline">
+            Studio untuk membangun asset digital &amp; produk info/teknologi.
+          </div>
+          <div class="business-focus">
+            Fokus: produk edukasi, membership, landing page high-conversion, dan digital IP.
+          </div>
+          <div class="business-footer">
+            <span>Projects: 8+</span>
+            <span class="pill-small">High growth</span>
+          </div>
+        </div>
+
+        <div class="business-card">
+          <div class="business-label">04 · Advisory &amp; Consulting</div>
+          <div class="business-name">Mahesa Advisory</div>
+          <div class="business-tagline">
+            Pendampingan langsung untuk business owner yang ingin bisnisnya naik kelas.
+          </div>
+          <div class="business-focus">
+            Fokus: bisnis keluarga, UMKM naik kelas, dan perapihan struktur &amp; sistem.
+          </div>
+          <div class="business-footer">
+            <span>Klien: 15+</span>
+            <span class="pill-small">By referral</span>
+          </div>
+        </div>
+
+        <div class="business-card">
+          <div class="business-label">05 · Education &amp; Media</div>
+          <div class="business-name">Mahesa Academy</div>
+          <div class="business-tagline">
+            Platform edukasi bisnis &amp; cashflow untuk anak muda dan pemilik usaha.
+          </div>
+          <div class="business-focus">
+            Fokus: kelas online, workshop, dan konten praktis berbasis pengalaman lapangan.
+          </div>
+          <div class="business-footer">
+            <span>Participants: 300+</span>
+            <span class="pill-small">Growing</span>
+          </div>
+        </div>
+
+        <div class="business-card">
+          <div class="business-label">06 · Strategic Investments</div>
+          <div class="business-name">Mahesa Capital</div>
+          <div class="business-tagline">
+            Vehicle untuk deal bersama partner yang aligned secara visi &amp; kultur.
+          </div>
+          <div class="business-focus">
+            Fokus: minority stake di brand &amp; bisnis yang sudah punya proof of concept.
+          </div>
+          <div class="business-footer">
+            <span>Deals: curated</span>
+            <span class="pill-small">By invitation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Portofolio Pilihan</div>
+          <h2 class="section-title">Beberapa inisiatif yang sudah dijalankan.</h2>
+        </div>
+        <p class="section-subtitle">
+          Ini snapshot singkat. Detail angka, struktur deal, dan timeline
+          tersedia dalam confidential deck untuk partner &amp; investor yang serius.
+        </p>
+      </div>
+
+      <div class="portfolio-grid">
+        <div class="portfolio-card">
+          <div class="portfolio-tag">Real Estate</div>
+          <div class="portfolio-title">Repositioning Rumah Menjadi Kos Eksklusif</div>
+          <div class="portfolio-client">Internal asset · Jakarta Selatan</div>
+          <p>
+            Mengubah rumah tinggal menjadi kos eksklusif 10+ kamar
+            dengan optimasi layout, repositioning brand, dan digital marketing terukur.
+          </p>
+          <div class="portfolio-meta">
+            <span>Yield naik &gt; 1.8x</span>
+            <span class="portfolio-link">Detail by request</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-tag">F&amp;B Brand</div>
+          <div class="portfolio-title">Kopi To-go Di Kawasan Perkantoran</div>
+          <div class="portfolio-client">In-house brand · Jabodetabek</div>
+          <p>
+            Konsep coffee to-go dengan menu simple, ticket size terjangkau,
+            dan fokus ke kecepatan service &amp; repeat order.
+          </p>
+          <div class="portfolio-meta">
+            <span>Payback &lt; 18 bulan*</span>
+            <span class="portfolio-link">Detail by request</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-tag">Digital Product</div>
+          <div class="portfolio-title">Program Edukasi Bisnis Praktis</div>
+          <div class="portfolio-client">Mahesa Academy</div>
+          <p>
+            Kelas dan playbook untuk pemilik usaha yang ingin rapikan cashflow,
+            struktur tim, dan sistem operasional tanpa teori berlebihan.
+          </p>
+          <div class="portfolio-meta">
+            <span>300+ peserta</span>
+            <span class="portfolio-link">Detail by request</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-tag">Advisory</div>
+          <div class="portfolio-title">Perapihan Bisnis Keluarga Generasi Kedua</div>
+          <div class="portfolio-client">Client · Bandung</div>
+          <p>
+            Pendampingan generasi penerus dalam memisahkan uang usaha &amp; pribadi,
+            merapikan struktur, dan monitoring via dashboard sederhana.
+          </p>
+          <div class="portfolio-meta">
+            <span>Profit margin naik</span>
+            <span class="portfolio-link">Detail by request</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-tag">Co-Investment</div>
+          <div class="portfolio-title">Minority Stake di Brand Lokal</div>
+          <div class="portfolio-client">Partnership deal</div>
+          <p>
+            Menyediakan capital, struktur, dan playbook untuk scale up outlet
+            sekaligus memperkuat brand dan SOP operasional.
+          </p>
+          <div class="portfolio-meta">
+            <span>Expansion on-track</span>
+            <span class="portfolio-link">Detail by request</span>
+          </div>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-tag">Content &amp; Media</div>
+          <div class="portfolio-title">Konten Bisnis &amp; Cashflow</div>
+          <div class="portfolio-client">Mahesa Media</div>
+          <p>
+            Konten pendek yang membahas realita di lapangan, dari angka sampai mindset,
+            ditujukan untuk pemilik usaha dan anak muda yang mau mulai.
+          </p>
+          <div class="portfolio-meta">
+            <span>Organic reach</span>
+            <span class="portfolio-link">Detail by request</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NUMBERS -->
+    <section id="numbers">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Angka &amp; Traction</div>
+          <h2 class="section-title">Ringkasan singkat dalam bahasa angka.</h2>
+        </div>
+        <p class="section-subtitle">
+          Angka di bawah ini adalah estimasi agregat internal per 2025,
+          untuk gambaran skala dan arah, bukan untuk due diligence final.
+        </p>
+      </div>
+
+      <div class="numbers-grid">
+        <div class="number-card">
+          <div class="number-label">Aggregated AUM (Aset Kelolaan)</div>
+          <div class="number-value">Rp 25M+</div>
+          <div class="number-caption">Termasuk properti, bisnis operasional, dan aset digital.</div>
+        </div>
+
+        <div class="number-card">
+          <div class="number-label">Revenue gabungan tahunan</div>
+          <div class="number-value">Rp 4.5M+</div>
+          <div class="number-caption">Dari berbagai unit usaha dan partnership aktif.</div>
+        </div>
+
+        <div class="number-card">
+          <div class="number-label">Tim &amp; talent</div>
+          <div class="number-value">20+</div>
+          <div class="number-caption">Karyawan langsung, part-time, dan kru operasional.</div>
+        </div>
+
+        <div class="number-card">
+          <div class="number-label">Track record aktif</div>
+          <div class="number-value">5+ tahun</div>
+          <div class="number-caption">Membuka, menjalankan, dan merapikan beberapa lini usaha.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Kontak &amp; Partnership</div>
+          <h2 class="section-title">Bangun sesuatu yang lebih besar bersama.</h2>
+        </div>
+        <p class="section-subtitle">
+          Untuk pitch deck lengkap, proposal kerja sama, atau co-investment,
+          isi form singkat di bawah. Mahesa Group hanya akan follow up
+          untuk proposal yang relevan dan aligned secara visi.
+        </p>
+      </div>
+
+      <div class="contact-grid card">
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('Form ini masih dummy. Integrasikan ke backend / layanan form (misal: form handler) sebelum live.');">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="name">Nama Lengkap</label>
+              <input id="name" name="name" type="text" placeholder="Nama Anda" required />
+            </div>
+            <div class="form-field">
+              <label for="company">Perusahaan / Brand</label>
+              <input id="company" name="company" type="text" placeholder="Nama perusahaan / brand" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="email@domain.com" required />
+            </div>
+            <div class="form-field">
+              <label for="topic">Topik</label>
+              <input id="topic" name="topic" type="text" placeholder="Co-investment, JV, advisory, dll." />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="message">Ringkasan Singkat</label>
+            <textarea id="message" name="message" placeholder="Ceritakan secara singkat: bisnis Anda, kebutuhan, atau ide kerja sama."></textarea>
           </div>
 
           <div>
-            <div class="card">
-              <div class="card-label">FONDASI NILAI</div>
-              <div class="card-title">Cara kami bermain di arena bisnis</div>
-              <ul>
-                <li>Keputusan berbasis data & realita, bukan sekadar euforia.</li>
-                <li>Partnership yang saling menguntungkan, bukan hit & run.</li>
-                <li>Eksekusi yang konsisten: lebih senang bekerja daripada sekadar bicara.</li>
-                <li>Reputasi dijaga seperti aset utama.</li>
-              </ul>
-            </div>
+            <button class="btn-primary" type="submit">
+              Kirim &amp; Request Deck
+              <span>↗</span>
+            </button>
           </div>
-        </div>
-      </section>
+        </form>
 
-      <!-- SERVICES -->
-      <section class="section" id="services">
-        <div class="section-kicker">FOKUS GERAK</div>
-        <h2 class="section-title">AREA USAHA & KOLABORASI</h2>
-        <p class="section-description">
-          Struktur usaha dapat berkembang seiring waktu.
-          Berikut kerangka utama yang menjadi arah kolaborasi dan ekspansi Mahesa Group.
-          <!-- Ubah teks & kartu di bawah ini sesuai bidang usaha spesifik kamu -->
-        </p>
+        <div>
+          <strong>Detail kontak</strong>
+          <ul class="contact-meta-list">
+            <li><span>Founder &amp; Principal:</span> Dahlan Revara Mahesa</li>
+            <li><span>Email:</span> halo@mahesagroup.id</li>
+            <li><span>WhatsApp (business):</span> +62 811-2222-3344</li>
+            <li><span>Lokasi utama:</span> Jakarta, Indonesia</li>
+          </ul>
 
-        <div class="cards">
-          <article class="card">
-            <div class="card-label">01</div>
-            <div class="card-title">Kemitraan & Investasi Bisnis</div>
-            <p>
-              Kolaborasi dengan pelaku usaha yang punya fondasi kuat namun butuh partner untuk struktur, ekspansi, atau penguatan modal.
-            </p>
-            <ul>
-              <li>Skema partnership yang jelas dan terukur.</li>
-              <li>Fokus pada bisnis yang punya potensi berkembang.</li>
-              <li>Bangun sistem, bukan sekadar injeksi dana.</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <div class="card-label">02</div>
-            <div class="card-title">Operasional & Pengelolaan Usaha</div>
-            <p>
-              Menguatkan pondasi usaha melalui pengelolaan yang lebih rapi, prosedural, dan siap scale up.
-            </p>
-            <ul>
-              <li>Standardisasi operasional & workflow.</li>
-              <li>Pengelolaan tim & KPI yang realistis.</li>
-              <li>Monitoring performa usaha secara berkala.</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <div class="card-label">03</div>
-            <div class="card-title">Ekspansi & Pengembangan Lini Baru</div>
-            <p>
-              Membuka peluang usaha baru yang selaras dengan karakter Mahesa Group:
-              kuat, realistis, dan punya ruang tumbuh.
-            </p>
-            <ul>
-              <li>Analisa peluang & risiko secara menyeluruh.</li>
-              <li>Pembangunan brand & positioning sejak awal.</li>
-              <li>Sinergi antara lini usaha yang sudah ada.</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <!-- CONTACT -->
-      <section class="section" id="contact">
-        <div class="section-kicker">KONTAK</div>
-        <h2 class="section-title">HUBUNGI MAHESA GROUP</h2>
-        <p class="section-description">
-          Untuk peluang kerja sama, kolaborasi, atau pembicaraan serius soal bisnis,
-          silakan gunakan kanal resmi di bawah ini.
-        </p>
-
-        <div class="contact">
-          <div>
-            <div class="contact-text">
-              <strong>Prioritas kami:</strong> percakapan yang konkret, saling menguatkan, dan berorientasi jangka panjang.
-              Jika kamu datang dengan mentalitas yang sama, kami terbuka untuk berdiskusi.
-            </div>
-            <div class="contact-meta">
-              Respon melalui WhatsApp & Instagram dilakukan pada jam kerja.
-            </div>
+          <div class="contact-socials">
+            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">Newsletter</a>
           </div>
-          <div class="contact-ctas">
-            <a href="https://wa.me/639463359582" target="_blank" rel="noopener" class="btn btn-primary">
-              <span class="btn-icon">✆</span>
-              <span>WhatsApp Mahesa Group</span>
-            </a>
-            <a href="https://www.instagram.com/mahesagroup.co?igsh=MWdxaTFuajcyYmdnOQ==" target="_blank" rel="noopener" class="btn btn-ghost">
-              <span class="btn-icon">IG</span>
-              <span>Instagram Official</span>
-            </a>
-          </div>
+
+          <p style="margin-top: 1rem; font-size: 0.78rem; color: var(--text-muted);">
+            Prioritas kami adalah kolaborasi jangka panjang dengan
+            <strong>partner yang eksekusinya nyata, bukan hanya presentasi cantik</strong>.
+          </p>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
 
     <!-- FOOTER -->
-    <footer class="footer">
+    <footer>
       <div class="footer-inner">
         <div>© <span id="year"></span> Mahesa Group. All rights reserved.</div>
-        <div class="footer-links">
-          <a href="#home">Beranda</a>
-          <a href="#about">Profil</a>
-          <a href="#services">Layanan</a>
-          <a href="#contact">Kontak</a>
-        </div>
+        <div>Confidential overview · For selected partners &amp; investors.</div>
       </div>
     </footer>
-  </div>
+  </main>
 
   <script>
     // Tahun otomatis di footer
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Toggle nav untuk mobile
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    // Tutup nav ketika link diklik (mobile)
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+      });
+    });
   </script>
 </body>
-</html>
+                </html>
