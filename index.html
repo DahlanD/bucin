@@ -1,666 +1,197 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Untuk Kamu ❤️</title>
-
-  <!--
-    CUSTOMIZE DI SINI:
-    - Cari tulisan NAMA_KU dan NAMA_KAMU lalu ganti sesuai kebutuhan.
-    - Di script paling bawah ada TANGGAL_JADIAN, ganti ke tanggal kalian.
-  -->
-
-  <style>
-    :root {
-      --bg: #050816;
-      --bg-soft: #0b1020;
-      --accent: #ff4b8b;
-      --accent-soft: rgba(255, 75, 139, 0.15);
-      --text: #fdfdfd;
-      --muted: #c6c7d3;
-      --card: #111627;
-      --radius: 18px;
-      --shadow: 0 18px 40px rgba(0,0,0,0.6);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #1f2937 0, #050816 48%, #020617 100%);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* floating hearts background */
-    .heart {
-      position: fixed;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.3);
-      animation: floatUp linear infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(0.8);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-120vh) scale(1.4);
-        opacity: 0;
-      }
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(to bottom,
-        rgba(5, 8, 22, 0.92),
-        rgba(5, 8, 22, 0.88),
-        transparent
-      );
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-
-    .nav-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 10px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 13px;
-    }
-
-    .nav-title {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .nav-title span:first-child {
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .nav-title span:last-child {
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .nav-pill {
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.18);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--muted);
-    }
-
-    main {
-      flex: 1;
-      position: relative;
-      z-index: 1;
-    }
-
-    .section {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 32px 18px;
-    }
-
-    /* HERO */
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 26px;
-      align-items: center;
-      padding-top: 40px;
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        grid-template-columns: minmax(0,1fr);
-        padding-top: 24px;
-      }
-    }
-
-    .hero-kicker {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-
-    .hero-title {
-      font-size: 32px;
-      line-height: 1.15;
-    }
-
-    .hero-title span {
-      display: block;
-    }
-
-    .hero-title .big {
-      font-size: 40px;
-      color: var(--accent);
-    }
-
-    @media (min-width: 900px) {
-      .hero-title {
-        font-size: 38px;
-      }
-      .hero-title .big {
-        font-size: 48px;
-      }
-    }
-
-    .hero-sub {
-      margin-top: 14px;
-      font-size: 14px;
-      color: var(--muted);
-      max-width: 430px;
-    }
-
-    .hero-sub strong {
-      color: var(--text);
-    }
-
-    .hero-ctas {
-      margin-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .btn {
-      border-radius: 999px;
-      padding: 8px 18px;
-      font-size: 13px;
-      font-weight: 500;
-      border: 1px solid transparent;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #ff4b8b, #ff7aa2);
-      color: #1f2933;
-      box-shadow: var(--shadow);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 20px 45px rgba(0,0,0,0.7);
-    }
-
-    .btn-ghost {
-      background: rgba(15,23,42,0.7);
-      border-color: rgba(148,163,184,0.5);
-      color: var(--muted);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent);
-      color: var(--text);
-      transform: translateY(-1px);
-    }
-
-    .hero-note {
-      margin-top: 10px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .hero-card {
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background:
-        radial-gradient(circle at top left, rgba(255,75,139,0.18), transparent 60%),
-        radial-gradient(circle at bottom right, rgba(56,189,248,0.2), transparent 60%),
-        var(--card);
-      padding: 20px 18px 16px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card-title {
-      font-size: 14px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .hero-card-main {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-
-    .hero-card-main span {
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    .hero-card-quote {
-      font-size: 12px;
-      color: var(--muted);
-      font-style: italic;
-      margin-bottom: 14px;
-    }
-
-    .hero-meta-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .hero-meta span strong {
-      display: block;
-      color: var(--text);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 2px;
-      font-size: 10px;
-    }
-
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
-      border-radius: 999px;
-      margin: 10px 0 12px;
-    }
-
-    .hero-counter {
-      font-size: 11px;
-      color: var(--muted);
-      text-align: right;
-    }
-
-    /* REASONS */
-
-    .section-kicker {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .section-title {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-
-    .section-desc {
-      font-size: 13px;
-      color: var(--muted);
-      max-width: 520px;
-    }
-
-    .reasons-grid {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 18px;
-    }
-
-    @media (max-width: 768px) {
-      .reasons-grid {
-        grid-template-columns: minmax(0,1fr);
-      }
-    }
-
-    .reasons-card {
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,0.12);
-      background: var(--bg-soft);
-      padding: 16px 16px 14px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .reasons-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .reasons-header span:first-child {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--muted);
-    }
-
-    .reasons-header span:last-child {
-      font-size: 11px;
-      color: var(--accent);
-    }
-
-    .reason-main {
-      font-size: 15px;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .reason-extra {
-      font-size: 12px;
-    }
-
-    .reason-controls {
-      margin-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: 11px;
-      color: var(--muted);
-      align-items: center;
-    }
-
-    .mini-btn {
-      font-size: 11px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(15,23,42,0.8);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
-    }
-
-    .mini-btn:hover {
-      transform: translateY(-1px);
-      background: rgba(15,23,42,1);
-      border-color: var(--accent);
-    }
-
-    .tiny-pill {
-      border-radius: 999px;
-      background: var(--accent-soft);
-      padding: 4px 10px;
-      font-size: 11px;
-      color: var(--accent);
-    }
-
-    .list-card {
-      border-radius: var(--radius);
-      border: 1px dashed rgba(255,255,255,0.18);
-      padding: 14px 14px 12px;
-      font-size: 12px;
-      color: var(--muted);
-      background: rgba(15,23,42,0.8);
-    }
-
-    .list-card ul {
-      padding-left: 18px;
-      margin-top: 6px;
-    }
-
-    .list-card li {
-      margin-bottom: 4px;
-    }
-
-    /* ENDING SECTION */
-
-    .ending {
-      margin-top: 30px;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background:
-        radial-gradient(circle at top, rgba(255,75,139,0.16), transparent 55%),
-        rgba(10,16,30,0.98);
-      padding: 22px 18px 18px;
-      text-align: center;
-      box-shadow: var(--shadow);
-    }
-
-    .ending-title {
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-
-    .ending-text {
-      font-size: 13px;
-      color: var(--muted);
-      max-width: 540px;
-      margin: 0 auto 14px;
-    }
-
-    .ending-text strong {
-      color: var(--text);
-    }
-
-    .ending-sign {
-      font-size: 13px;
-      margin-top: 6px;
-      color: var(--accent);
-    }
-
-    /* FOOTER */
-
-    footer {
-      border-top: 1px solid rgba(148,163,184,0.3);
-      padding: 12px 18px 18px;
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 24px;
-    }
-
-    .footer-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mahesa Group — Holding for Growth</title>
+  <meta name="description" content="Mahesa Group — holding company accelerating multi-sector growth through innovation, strategy and digital execution. Bandung." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#0b2540">
 </head>
 <body>
-  <div class="page">
-
-    <!-- FLOATING HEARTS GENERATED BY JS -->
-
-    <header>
-      <div class="nav-inner">
-        <div class="nav-title">
-          <span>website bucin</span>
-          <span>Untuk kamu, dari NAMA_KU</span>
-        </div>
-        <div class="nav-pill">
-          <span>100% perasaan · 0% malu</span>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="assets/logo-black.png" alt="Mahesa Group" class="logo">
+        <div class="brand-text">
+          <h1>Mahesa Group</h1>
+          <p class="tag">Innovation • Strategy • Execution</p>
         </div>
       </div>
-    </header>
 
-    <main>
-      <!-- HERO -->
-      <section class="section hero">
-        <div>
-          <div class="hero-kicker">untuk NAMA_KAMU</div>
-          <h1 class="hero-title">
-            <span>Kalau hati bisa punya</span>
-            <span class="big">halaman utama,</span>
-            <span>isinya kamu semua.</span>
-          </h1>
+      <nav class="nav">
+        <a href="#services">Layanan</a>
+        <a href="#portfolio">Portofolio</a>
+        <a href="#about">Tentang</a>
+        <a href="#contact" class="btn-outline">Kontak</a>
+      </nav>
 
-          <p class="hero-sub">
-            Di dunia yang bising dan serba buru-buru, ada satu hal yang <strong>pelan tapi pasti</strong>:
-            cara aku jatuh ke kamu, tiap hari, sedikit lebih dalam.
-          </p>
+      <button class="hamburger" aria-label="menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <h2>Holding company for multi-sector growth.</h2>
+          <p class="lead">Kami membantu UMKM, brand, dan perusahaan menengah melakukan transformasi digital yang nyata — dari brand identity sampai eksekusi kampanye dan produk digital.</p>
           <div class="hero-ctas">
-            <a href="#reasons" class="btn btn-primary">
-              <span>✨</span>
-              <span>Lihat kenapa aku segininya</span>
-            </a>
-            <a href="#ending" class="btn btn-ghost">
-              <span>❤</span>
-              <span>Loncat ke bagian gombal</span>
-            </a>
+            <a href="#contact" class="btn-primary">Konsultasi Gratis</a>
+            <a href="#portfolio" class="btn-ghost">Lihat Portofolio</a>
           </div>
 
-          <p class="hero-note">
-            *Scroll pelan, baca satu-satu. Ini bukan landing page produk,
-            ini landing page perasaan.
-          </p>
+          <ul class="quick-features">
+            <li><strong>Digital & Brand</strong> — website, UI/UX, positioning</li>
+            <li><strong>Konsultasi Strategis</strong> — roadmap & growth experiments</li>
+            <li><strong>Produksi Kreatif</strong> — konten, desain, kampanye</li>
+          </ul>
         </div>
 
-        <div>
-          <div class="hero-card">
-            <div class="hero-card-title">STATUS HUBUNGAN</div>
-            <div class="hero-card-main">
-              Dari <span>“cuma ngobrol”</span> jadi <span>“gak kebayang tanpa kamu”</span>.
-            </div>
-            <p class="hero-card-quote">
-              “Kalau dekat kamu, dunia ribut bisa diam sebentar.”
-            </p>
-            <div class="divider"></div>
-            <div class="hero-meta-row">
-              <div class="hero-meta">
-                <span><strong>UNTUK</strong>NAMA_KAMU, yang selalu aku semogakan.</span>
-              </div>
-              <div class="hero-meta">
-                <span><strong>DARI</strong>NAMA_KU, yang lagi belajar jadi versi terbaik buat kamu.</span>
-              </div>
-            </div>
-            <div class="divider"></div>
-            <div class="hero-counter">
-              Kita sudah berjalan <span id="daysCounter">…</span> hari bareng.
-            </div>
+        <div class="hero-right">
+          <div class="card">
+            <img src="assets/hero-visual.jpg" alt="Mahesa visual" />
+            <figcaption>Eksekusi yang measurable dan berorientasi hasil.</figcaption>
           </div>
         </div>
-      </section>
-
-      <!-- REASONS -->
-      <section class="section" id="reasons">
-        <div class="section-kicker">alasan kenapa</div>
-        <h2 class="section-title">Aku segitunya sama kamu</h2>
-        <p class="section-desc">
-          Perasaan itu nggak selalu bisa dijelaskan pakai kalimat rapi,
-          tapi aku coba tulis beberapa yang paling sering muter di kepala.
-        </p>
-
-        <div class="reasons-grid">
-          <!-- left: dynamic reasons -->
-          <article class="reasons-card">
-            <div class="reasons-header">
-              <span>reason <span id="reasonIndex">01</span></span>
-              <span id="reasonTag">favorite notification</span>
-            </div>
-            <div class="reason-main" id="reasonMain">
-              Cara kamu dengerin cerita aku, tanpa nge-judge, tanpa buru-buru.
-            </div>
-            <div class="reason-extra" id="reasonExtra">
-              Dunia boleh berisik, tapi pas aku chat kamu, rasanya tenang. 
-              Seolah semua kekacauan bisa di-pause sebentar.
-            </div>
-            <div class="reason-controls">
-              <button class="mini-btn" id="prevReason">
-                <span>←</span><span>Sebelumnya</span>
-              </button>
-              <span class="tiny-pill" id="reasonCountLabel">1 / 5</span>
-              <button class="mini-btn" id="nextReason">
-                <span>Selanjutnya</span><span>→</span>
-              </button>
-            </div>
-          </article>
-
-          <!-- right: fixed list -->
-          <article class="list-card">
-            <div>Beberapa hal kecil tentang kamu yang kelihatannya sepele, tapi di aku efeknya kebangetan:</div>
-            <ul>
-              <li>Cara kamu ngetik “hehe” / “wkwk” yang cuma khas kamu.</li>
-              <li>Kalimat random kamu yang tiba-tiba bikin aku ngerasa aman.</li>
-              <li>Suara kamu, bahkan pas cuma bilang “udah makan belum?”.</li>
-              <li>Fakta bahwa kamu ada. Di hari-hari jelekku, itu sudah cukup.</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <!-- ENDING / CONFESSION -->
-      <section class="section" id="ending">
-        <div class="ending">
-          <div class="ending-title">Jadi intinya begini.</div>
-          <p class="ending-text">
-            Dari semua hal yang bisa aku kejar di hidup ini,
-            <strong>kamu tetap salah satu yang paling aku jaga</strong>.
-            Bukan cuma sekarang, tapi selama kamu masih nyaman ada di sini.
-          </p>
-          <p class="ending-text">
-            Aku nggak janji semuanya bakal mulus.
-            Kita pasti bakal capek, sebel, beda pendapat.
-            Tapi selama kamu masih mau gandeng aku,
-            <strong>aku nggak akan lepas duluan</strong>.
-          </p>
-          <div class="ending-sign">
-            Dari NAMA_KU, yang jatuh cintanya pelan, tapi serius.
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="footer-inner">
-        <span>Website bucin ini handcrafted khusus buat NAMA_KAMU.</span>
-        <span>Kalau kamu baca sampai sini, berarti kamu spesial banget.</span>
       </div>
-    </footer>
-  </div>
+    </section>
 
-  <script>
-    // === FLOATING HEARTS ===
-    function spawnHeart() {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.textContent = '❤';
+    <!-- Services -->
+    <section id="services" class="section">
+      <div class="container">
+        <h3 class="section-title">Layanan Utama</h3>
+        <div class="cards">
+          <article class="card-sm">
+            <h4>Pengembangan Digital</h4>
+            <p>Website, e-commerce, integrasi sistem, dashboard operasional.</p>
+          </article>
 
-      const size = Math.random() * 10 + 10; // 10 - 20px
-      heart.style.fontSize = size + 'px';
+          <article class="card-sm">
+            <h4>Konsultasi & Strategi</h4>
+            <p>Roadmap bisnis, positioning, growth experiments, monetisasi.</p>
+          </article>
 
-      const left = Math.random() * 100;
-      heart.style.left = left + 'vw';
+          <article class="card-sm">
+            <h4>Brand & Kreatif</h4>
+            <p>Branding, design system, konten visual & kampanye kreatif.</p>
+          </article>
 
-      const duration = Math.random() * 8 + 8;
+          <article class="card-sm">
+            <h4>Unit Usaha</h4>
+            <p>Manajemen dan inkubasi unit bisnis di sektor kreatif dan profesional.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="section bg-quiet">
+      <div class="container">
+        <h3 class="section-title">Portofolio & Studi Kasus</h3>
+        <p class="muted">Projek-projek terpilih yang memperlihatkan hasil dan metrik nyata.</p>
+
+        <div class="project-grid">
+          <div class="project">
+            <img src="assets/portfolio-1.jpg" alt="project 1">
+            <h5>Rebrand UMKM — peningkatan conversion</h5>
+            <p class="muted">Strategi brand + website — konversi naik 28% bulan pertama.</p>
+          </div>
+
+          <div class="project">
+            <img src="assets/portfolio-2.jpg" alt="project 2">
+            <h5>Platform B2B</h5>
+            <p class="muted">Integrasi sistem & dashboard operasional.</p>
+          </div>
+
+          <div class="project">
+            <img src="assets/portfolio-3.jpg" alt="project 3">
+            <h5>Kampanye Konten</h5>
+            <p class="muted">Awareness & engagement growth untuk brand food tech.</p>
+          </div>
+        </div>
+
+        <p class="center"><a href="#contact" class="btn-outline">Minta Studi Kasus Lengkap</a></p>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <div class="container about-grid">
+        <div>
+          <h3 class="section-title">Tentang Mahesa Group</h3>
+          <p>Mahesa Group adalah holding company yang menggabungkan keahlian digital, strategi, dan produksi kreatif untuk memajukan pertumbuhan multi-sektor. Berdiri di Bandung, kami fokus pada eksekusi terukur — bukan hanya janji.</p>
+          <ul class="list-check">
+            <li>Tim lintas-disiplin: strategists, designers, developers</li>
+            <li>Fokus pada metrik yang penting: revenue, retention, conversion</li>
+            <li>Model kolaborasi: paket konsultasi, retainer, dan project-based</li>
+          </ul>
+        </div>
+
+        <aside class="team-card">
+          <h4>Hubungi Tim</h4>
+          <p><strong>Email:</strong> hello@mahesagroup.com</p>
+          <p><strong>Alamat:</strong> Bandung, Indonesia</p>
+          <p><strong>Telepon:</strong> +62 812-xxx-xxxx</p>
+          <p><a href="https://mahesagroup.com" class="btn-primary">Kunjungi Situs Utama</a></p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section bg-quiet">
+      <div class="container">
+        <h3 class="section-title">Kontak & Konsultasi</h3>
+        <p class="muted">Isi form ini kalau mau briefing singkat atau konsultasi. Kami follow up dalam 1-2 hari kerja.</p>
+
+        <form id="contact-form" class="form-grid" action="https://formspree.io/f/your-form-id" method="POST">
+          <label>
+            Nama
+            <input type="text" name="name" required>
+          </label>
+
+          <label>
+            Email
+            <input type="email" name="email" required>
+          </label>
+
+          <label>
+            Perusahaan / Brand
+            <input type="text" name="company">
+          </label>
+
+          <label class="full">
+            Pesan singkat (tujuan, anggaran, target)
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+
+          <div class="form-actions full">
+            <button type="submit" class="btn-primary">Kirim Permintaan</button>
+            <button type="button" class="btn-ghost" id="download-brochure">Minta Brochure</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Mahesa Group</strong> — Bandung • © <span id="year"></span>
+      </div>
+      <div class="socials">
+        <a href="https://mahesagroup.com">Website</a>
+        <a href="https://instagram.com/mahesagroup.co">Instagram</a>
+        <a href="mailto:hello@mahesagroup.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
